@@ -16,8 +16,8 @@ public class FitnessFunction<T> {
         this.fitnessFunction = fitnessFunction;
     }
 
-    public GeneticAlgorithmRunner<T> withCrossover(CrossoverFunction<T> crossoverFunction) {
-        return new GeneticAlgorithmRunner<>(population, fitnessFunction, crossoverFunction, target);
+    public GeneticAlgorithmRunnerBuilder<T> withCrossover(CrossoverFunction<T> crossoverFunction) {
+        return new GeneticAlgorithmRunnerBuilder<>(population, fitnessFunction, crossoverFunction, target);
     }
 
     public FitnessFunction<T> targeting(Integer target) {
