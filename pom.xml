@@ -16,7 +16,7 @@
                 <version>3.6.0</version>
                 <configuration>
                     <source>1.8</source>
-                    <fitnessFunctionTarget>1.8</fitnessFunctionTarget>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
