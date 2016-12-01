@@ -1,4 +1,4 @@
-package com.lukgru.galgo;
+package com.lukgru.galgo.runner;
 
 import java.util.Collection;
 
@@ -6,9 +6,14 @@ import java.util.Collection;
  * Created by Lukasz on 28.11.2016.
  */
 public class GenerationResult<T> {
-    private T best;
+    private final Collection<T> lastPopulation;
     private int iterations;
-    private Collection<T> lastPopulation;
+    private T best;
+
+    public GenerationResult(Collection<T> lastPopulation, int iterations) {
+        this.lastPopulation = lastPopulation;
+        this.iterations = iterations;
+    }
 
     public T getBest() {
         return best;

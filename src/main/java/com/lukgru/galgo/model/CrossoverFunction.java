@@ -1,4 +1,4 @@
-package com.lukgru.galgo;
+package com.lukgru.galgo.model;
 
 /**
  * Created by Lukasz on 28.11.2016.

@@ -1,5 +1,6 @@
 package com.lukgru.galgo;
 
+import com.lukgru.galgo.runner.GenerationResult;
 import org.junit.Test;
 
 import java.util.Arrays;

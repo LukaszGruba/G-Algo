@@ -1,4 +1,8 @@
-package com.lukgru.galgo;
+package com.lukgru.galgo.builder;
+
+import com.lukgru.galgo.model.CrossoverFunction;
+import com.lukgru.galgo.runner.GeneticAlgorithmRunner;
+import com.lukgru.galgo.runner.SimpleGeneticAlgorithmRunner;
 
 import java.util.Collection;
 import java.util.function.Function;

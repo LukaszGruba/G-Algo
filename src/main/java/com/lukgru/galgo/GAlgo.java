@@ -1,5 +1,7 @@
 package com.lukgru.galgo;
 
+import com.lukgru.galgo.builder.PopulationBuilder;
+
 import java.util.Collection;
 
 /**
@@ -9,7 +11,7 @@ public class GAlgo {
 
     private GAlgo() {}
 
-    public static <T> Population<T> fromPopulation(Collection<T> population) {
-        return new Population<T>(population);
+    public static <T> PopulationBuilder<T> fromPopulation(Collection<T> population) {
+        return new PopulationBuilder<>(population);
     }
 }
