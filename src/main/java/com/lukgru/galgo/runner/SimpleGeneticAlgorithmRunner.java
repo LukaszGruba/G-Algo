@@ -8,6 +8,11 @@ import com.lukgru.galgo.model.Population;
 /**
  * Created by Łukasz on 2016-11-28.
  */
+//TODO: remove after providing implementation
+@SuppressWarnings({
+        "PMD.UnusedPrivateField",
+        "PMD.UnusedFormalParameter"
+})
 public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T> {
 
     private final FitnessFunction<T> fitnessFunction;
@@ -15,7 +20,8 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
     private final Mutation<T> mutation;
     private final Population<T> initialPopulation;
 
-    public SimpleGeneticAlgorithmRunner(Population<T> initialPopulation, FitnessFunction<T> fitnessFunction, CrossoverFunction<T> crossoverFunction, Mutation<T> mutation) {
+    public SimpleGeneticAlgorithmRunner(Population<T> initialPopulation, FitnessFunction<T> fitnessFunction,
+                                        CrossoverFunction<T> crossoverFunction, Mutation<T> mutation) {
         this.initialPopulation = initialPopulation;
         this.fitnessFunction = fitnessFunction;
         this.crossoverFunction = crossoverFunction;
@@ -29,7 +35,7 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
         do {
             Population<T> selectedForReproduction = selection(population, fitnessFunction);
             Population<T> newPopulation = reproduce(selectedForReproduction, crossoverFunction);
-            mutate(newPopulation);
+            this.mutate(newPopulation);
             population = newPopulation;
             iteration++;
         } while (!solutionFound(population, fitnessFunction));
