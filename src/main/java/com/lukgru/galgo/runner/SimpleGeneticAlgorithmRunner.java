@@ -8,6 +8,11 @@ import com.lukgru.galgo.model.Population;
 /**
  * Created by Łukasz on 2016-11-28.
  */
+//TODO: remove after providing implementation
+@SuppressWarnings({
+        "PMD.UnusedPrivateField",
+        "PMD.UnusedFormalParameter"
+})
 public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T> {
 
     private final FitnessFunction<T> fitnessFunction;
