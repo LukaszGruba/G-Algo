@@ -28,13 +28,19 @@ public class Individual<T> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || this.getClass() != o.getClass()) return false;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
 
-        Individual<?> that = (Individual<?>) o;
+        Individual<?> that = (Individual<?>) obj;
 
-        if (!this.value.equals(that.value)) return false;
+        if (!this.value.equals(that.value)) {
+            return false;
+        }
         return this.fitnessValue != null ? this.fitnessValue.equals(that.fitnessValue) : that.fitnessValue == null;
 
     }

@@ -17,15 +17,16 @@ public class GeneticAlgorithmRunnerBuilder<T> {
 
     private final Collection<T> population;
     private final Function<T, Integer> fitnessFunction;
-    private final Integer target;
+    private final Integer fitnessFunctionTarget;
     private final CrossoverFunction<T> crossoverFunction;
     private Function<T, T> mutationFunction;
     private Double mutationProbability;
 
-    public GeneticAlgorithmRunnerBuilder(Collection<T> population, Function<T, Integer> fitnessFunction, Integer target, CrossoverFunction<T> crossoverFunction) {
+    public GeneticAlgorithmRunnerBuilder(Collection<T> population, Function<T, Integer> fitnessFunction,
+                                         Integer fitnessFunctionTarget,CrossoverFunction<T> crossoverFunction) {
         this.population = population;
         this.fitnessFunction = fitnessFunction;
-        this.target = target;
+        this.fitnessFunctionTarget = fitnessFunctionTarget;
         this.crossoverFunction = crossoverFunction;
     }
 
@@ -40,11 +41,11 @@ public class GeneticAlgorithmRunnerBuilder<T> {
     }
 
     public GeneticAlgorithmRunner<T> runner() {
-        Population<T> tPopulation = new Population<>(population);
-        FitnessFunction<T> tFitnessFunction = new FitnessFunction<>(fitnessFunction, target);
-        Mutation<T> tMutation = new Mutation<>(mutationFunction, mutationProbability);
+        Population<T> initialPopulation = new Population<>(population);
+        FitnessFunction<T> fitness = new FitnessFunction<>(fitnessFunction, fitnessFunctionTarget);
+        Mutation<T> mutation = new Mutation<>(mutationFunction, mutationProbability);
 
-        return new SimpleGeneticAlgorithmRunner<>(tPopulation, tFitnessFunction, crossoverFunction, tMutation);
+        return new SimpleGeneticAlgorithmRunner<>(initialPopulation, fitness, crossoverFunction, mutation);
     }
 
 }
