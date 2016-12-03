@@ -7,7 +7,7 @@ import java.util.Collection;
 /**
  * Created by Lukasz on 28.11.2016.
  */
-public class GAlgo {
+public final class GAlgo {
 
     private GAlgo() {}
 

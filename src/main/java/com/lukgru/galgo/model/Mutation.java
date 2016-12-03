@@ -7,8 +7,8 @@ import java.util.function.Function;
  */
 public class Mutation<T> {
 
-    private Function<T, T> mutationFunction;
-    private Double probability;
+    private final Function<T, T> mutationFunction;
+    private final Double probability;
 
     public Mutation(Function<T, T> mutationFunction, Double probability) {
         if (mutationFunction == null || probability == null) {

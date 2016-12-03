@@ -13,7 +13,7 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
     private final FitnessFunction<T> fitnessFunction;
     private final CrossoverFunction<T> crossoverFunction;
     private final Mutation<T> mutation;
-    private Population<T> initialPopulation;
+    private final Population<T> initialPopulation;
 
     public SimpleGeneticAlgorithmRunner(Population<T> initialPopulation, FitnessFunction<T> fitnessFunction, CrossoverFunction<T> crossoverFunction, Mutation<T> mutation) {
         this.initialPopulation = initialPopulation;

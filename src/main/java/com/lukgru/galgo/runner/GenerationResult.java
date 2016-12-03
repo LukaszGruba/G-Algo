@@ -7,7 +7,7 @@ import com.lukgru.galgo.model.Population;
  */
 public class GenerationResult<T> {
     private final Population<T> finalPopulation;
-    private int iterations;
+    private final int iterations;
 
     public GenerationResult(Population<T> finalPopulation, int iterations) {
         this.finalPopulation = finalPopulation;

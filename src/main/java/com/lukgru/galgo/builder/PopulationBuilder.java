@@ -8,7 +8,7 @@ import java.util.function.Function;
  */
 public class PopulationBuilder<T> {
 
-    private Collection<T> population;
+    private final Collection<T> population;
 
     public PopulationBuilder(Collection<T> population) {
         this.population = population;
