@@ -1,8 +1,5 @@
 package com.lukgru.galgo.builder;
 
-import com.lukgru.galgo.model.Population;
-import org.apache.commons.collections4.CollectionUtils;
-
 import java.util.Collection;
 import java.util.function.Function;
 
@@ -11,13 +8,10 @@ import java.util.function.Function;
  */
 public class PopulationBuilder<T> {
 
-    private Population<T> population;
+    private Collection<T> population;
 
     public PopulationBuilder(Collection<T> population) {
-        if (CollectionUtils.isEmpty(population)) {
-            throw new IllegalArgumentException("PopulationBuilder cannot be empty");
-        }
-        this.population = new Population<>(population);
+        this.population = population;
     }
 
     public FitnessFunctionBuilder<T> withFitnessFunction(Function<T, Integer> fitnessFunction) {

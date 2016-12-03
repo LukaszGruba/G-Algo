@@ -20,12 +20,12 @@ public class GAlgoTest {
         GenerationResult result = GAlgo.fromPopulation(initPopulation)
                 .withFitnessFunction((a) -> 123 - a).targeting(0)
                 .withCrossover((a, b) -> (a + b) / 2)
-                .withMutation((a) -> (a), 0.05d)
+                .withMutationFunction((a) -> (a)).withMutationProbability(0.05d)
                 .runner().generate();
 
         //then
         result.getBest();
         result.getIterations();
-        result.getLastPopulation();
+        result.getFinalPopulation();
     }
 }

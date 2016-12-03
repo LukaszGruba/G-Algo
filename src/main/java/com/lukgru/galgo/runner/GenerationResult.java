@@ -1,29 +1,29 @@
 package com.lukgru.galgo.runner;
 
-import java.util.Collection;
+import com.lukgru.galgo.model.Population;
 
 /**
  * Created by Lukasz on 28.11.2016.
  */
 public class GenerationResult<T> {
-    private final Collection<T> lastPopulation;
+    private final Population<T> finalPopulation;
     private int iterations;
-    private T best;
 
-    public GenerationResult(Collection<T> lastPopulation, int iterations) {
-        this.lastPopulation = lastPopulation;
+    public GenerationResult(Population<T> finalPopulation, int iterations) {
+        this.finalPopulation = finalPopulation;
         this.iterations = iterations;
     }
 
     public T getBest() {
-        return best;
+        //TODO: return best individual
+        return null;
     }
 
     public int getIterations() {
         return iterations;
     }
 
-    public Collection<T> getLastPopulation() {
-        return lastPopulation;
+    public Population<T> getFinalPopulation() {
+        return finalPopulation;
     }
 }
