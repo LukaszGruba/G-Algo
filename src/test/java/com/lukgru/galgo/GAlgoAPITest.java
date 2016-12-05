@@ -1,10 +1,16 @@
 package com.lukgru.galgo;
 
+import com.lukgru.galgo.builder.PopulationBuilder;
+import com.lukgru.galgo.model.Individual;
 import com.lukgru.galgo.runner.GenerationResult;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.concurrent.Callable;
+import java.util.function.DoubleSupplier;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Created by Lukasz on 28.11.2016.
@@ -27,5 +33,15 @@ public class GAlgoAPITest {
         result.getBest();
         result.getIterations();
         result.getFinalPopulation();
+    }
+
+    @Test
+    public void allowToGeneratePopulation() {
+        //given
+        Supplier<Integer> factory = () -> (int)(Math.random() * Integer.MAX_VALUE);
+        int populationSize = 100;
+
+        //then
+        PopulationBuilder<Integer> populationBuilder = GAlgo.fromGeneratedPopulation(factory).withSize(populationSize);
     }
 }
