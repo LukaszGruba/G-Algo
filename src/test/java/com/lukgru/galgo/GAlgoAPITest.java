@@ -9,7 +9,7 @@ import java.util.Collection;
 /**
  * Created by Lukasz on 28.11.2016.
  */
-public class GAlgoTest {
+public class GAlgoAPITest {
 
     @Test
     public void testAPI() {
