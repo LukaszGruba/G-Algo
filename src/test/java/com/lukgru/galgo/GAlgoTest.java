@@ -1,5 +1,6 @@
 package com.lukgru.galgo;
 
+import com.lukgru.galgo.builder.mutation.MutationFunction;
 import com.lukgru.galgo.runner.GenerationResult;
 import org.junit.Test;
 
@@ -91,7 +92,7 @@ public class GAlgoTest {
                 new VariablesPair(-90, -90),
                 new VariablesPair(-100, -100)
         );
-        Function<VariablesPair, VariablesPair> mutationFunction = a -> new VariablesPair(
+        MutationFunction<VariablesPair> mutationFunction = a -> new VariablesPair(
                 (int) (Double.valueOf(a.x) * (0.5d + Math.random())),
                 (int) (Double.valueOf(a.y) * (0.5d + Math.random())));
 

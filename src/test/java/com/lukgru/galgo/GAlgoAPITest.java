@@ -1,15 +1,12 @@
 package com.lukgru.galgo;
 
-import com.lukgru.galgo.builder.PopulationBuilder;
-import com.lukgru.galgo.model.Individual;
+import com.lukgru.galgo.builder.population.SimplePopulationAccessor;
 import com.lukgru.galgo.runner.GenerationResult;
+import com.lukgru.galgo.runner.GeneticAlgorithmRunner;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.concurrent.Callable;
-import java.util.function.DoubleSupplier;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -42,6 +39,11 @@ public class GAlgoAPITest {
         int populationSize = 100;
 
         //then
-        PopulationBuilder<Integer> populationBuilder = GAlgo.fromGeneratedPopulation(factory).withSize(populationSize);
+        GenerationResult<Integer> result = GAlgo.fromGeneratedPopulation(factory)
+                .withSize(populationSize)
+                .withFitnessFunction((a) -> 123 - a).targeting(0)
+                .withCrossover((a, b) -> (a + b) / 2)
+                .withMutationFunction((a) -> (a)).withMutationProbability(0.05d)
+                .runner().generate();
     }
 }
