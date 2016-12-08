@@ -16,12 +16,12 @@ public final class GAlgo {
 
     public static <T> ConfigurationBuilder<T> fromPopulation(Collection<T> population) {
         PopulationAccessor<T> simpleAccessor = new SimplePopulationAccessor<>(population);
-        return new ConfigurationBuilder<T>().withPopulation(simpleAccessor);
+        return new ConfigurationBuilder<T>().withPopulationAccessor(simpleAccessor);
     }
 
     public static <T> ConfigurationBuilder<T> fromGeneratedPopulation(Supplier<T> factory) {
         PopulationAccessor<T> populationGenerator = new PopulationGenerator<>(factory);
-        return new ConfigurationBuilder<T>().withPopulation(populationGenerator);
+        return new ConfigurationBuilder<T>().withPopulationAccessor(populationGenerator);
     }
 
 }
