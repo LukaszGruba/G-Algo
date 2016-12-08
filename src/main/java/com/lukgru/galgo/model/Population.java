@@ -25,4 +25,8 @@ public class Population<T> {
     public Collection<Individual<T>> getIndividuals() {
         return individuals;
     }
+
+    public int size() {
+        return getIndividuals().size();
+    }
 }
