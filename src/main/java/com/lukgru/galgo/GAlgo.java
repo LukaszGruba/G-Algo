@@ -19,9 +19,21 @@ public final class GAlgo {
         return new ConfigurationBuilder<T>().withPopulationAccessor(simpleAccessor);
     }
 
-    public static <T> ConfigurationBuilder<T> fromGeneratedPopulation(Supplier<T> factory) {
-        PopulationAccessor<T> populationGenerator = new PopulationGenerator<>(factory);
-        return new ConfigurationBuilder<T>().withPopulationAccessor(populationGenerator);
+    public static <T> PopulationGeneratorBuilder<T> fromGeneratedPopulation(Supplier<T> factory) {
+        return new PopulationGeneratorBuilder<>(factory);
+    }
+
+    public static class PopulationGeneratorBuilder<T> {
+        private Supplier<T> factory;
+
+        private PopulationGeneratorBuilder(Supplier<T> factory) {
+            this.factory = factory;
+        }
+
+        public ConfigurationBuilder<T> withSize(int populationSize) {
+            PopulationAccessor<T> populationGenerator = new PopulationGenerator<T>(factory).withSize(populationSize);
+            return new ConfigurationBuilder<T>().withPopulationAccessor(populationGenerator);
+        }
     }
 
 }
