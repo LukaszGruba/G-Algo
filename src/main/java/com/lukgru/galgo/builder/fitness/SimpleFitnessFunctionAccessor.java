@@ -2,7 +2,6 @@ package com.lukgru.galgo.builder.fitness;
 
 import com.lukgru.galgo.model.FitnessFunction;
 
-import java.util.Collection;
 import java.util.function.Function;
 
 /**
@@ -23,6 +22,6 @@ public class SimpleFitnessFunctionAccessor<T> implements FitnessFunctionAccessor
 
     @Override
     public FitnessFunction<T> getFitnessFunction() {
-        return fitnessFunction != null ? new FitnessFunction<T>(fitnessFunction, target) : null;
+        return fitnessFunction != null ? new FitnessFunction<>(fitnessFunction, target) : null;
     }
 }
