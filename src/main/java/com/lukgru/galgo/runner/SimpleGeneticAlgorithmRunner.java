@@ -1,5 +1,6 @@
 package com.lukgru.galgo.runner;
 
+import com.lukgru.galgo.builder.population.PopulationAccessor;
 import com.lukgru.galgo.model.CrossoverFunction;
 import com.lukgru.galgo.model.FitnessFunction;
 import com.lukgru.galgo.model.Mutation;
@@ -15,31 +16,45 @@ import com.lukgru.galgo.model.Population;
 })
 public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T> {
 
+    private static final Mutation DEFAULT_MUTATION = new Mutation(a -> a, 0d);
+
+    private PopulationAccessor<T> populationAccessor;
     private final FitnessFunction<T> fitnessFunction;
     private final CrossoverFunction<T> crossoverFunction;
     private final Mutation<T> mutation;
-    private final Population<T> initialPopulation;
 
-    public SimpleGeneticAlgorithmRunner(Population<T> initialPopulation, FitnessFunction<T> fitnessFunction,
+    public SimpleGeneticAlgorithmRunner(PopulationAccessor<T> populationAccessor, FitnessFunction<T> fitnessFunction,
                                         CrossoverFunction<T> crossoverFunction, Mutation<T> mutation) {
-        this.initialPopulation = initialPopulation;
+        this.populationAccessor = populationAccessor;
         this.fitnessFunction = fitnessFunction;
         this.crossoverFunction = crossoverFunction;
-        this.mutation = mutation;
+        this.mutation = mutation != null ? mutation : DEFAULT_MUTATION;
+        validate();
+    }
+
+    private void validate() {
+        if (populationAccessor == null) {
+            throw new IllegalArgumentException("Population accessor cannot be null.");
+        }
+        if (fitnessFunction == null) {
+            throw new IllegalArgumentException("Fitness function cannot be null.");
+        }
+        if (crossoverFunction == null) {
+            throw new IllegalArgumentException("Crossover function cannot be null.");
+        }
     }
 
     @Override
     public GenerationResult<T> generate() {
-        Population<T> population = initialPopulation;
+        Population<T> population = populationAccessor.getPopulation();
         int iteration = 0;
         do {
             Population<T> selectedForReproduction = selection(population, fitnessFunction);
             Population<T> newPopulation = reproduce(selectedForReproduction, crossoverFunction);
-            this.mutate(newPopulation);
+            mutate(newPopulation);
             population = newPopulation;
             iteration++;
         } while (!solutionFound(population, fitnessFunction));
-
         return new GenerationResult<>(population, iteration);
     }
 

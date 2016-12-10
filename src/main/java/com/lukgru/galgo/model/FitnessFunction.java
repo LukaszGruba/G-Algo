@@ -10,8 +10,11 @@ public class FitnessFunction<T> {
     private final Integer target;
 
     public FitnessFunction(Function<T, Integer> fitnessFunction, Integer target) {
-        if (fitnessFunction == null || target == null) {
-            throw new IllegalArgumentException("Fitness function and fitness function's target cannot be null");
+        if (fitnessFunction == null) {
+            throw new IllegalArgumentException("Fitness function cannot be null.");
+        }
+        if (target == null) {
+            throw new IllegalArgumentException("Fitness target cannot be null.");
         }
         this.fitnessFunction = fitnessFunction;
         this.target = target;

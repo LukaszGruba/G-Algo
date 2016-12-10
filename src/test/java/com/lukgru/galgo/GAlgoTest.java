@@ -2,17 +2,19 @@ package com.lukgru.galgo;
 
 import com.lukgru.galgo.builder.mutation.MutationFunction;
 import com.lukgru.galgo.runner.GenerationResult;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.function.Function;
 
 import static org.junit.Assert.*;
 
 /**
  * Created by Lukasz on 04.12.2016.
  */
+//TODO: remove ignore when implementing
+@Ignore("no implementation yet")
 public class GAlgoTest {
     
     @Test

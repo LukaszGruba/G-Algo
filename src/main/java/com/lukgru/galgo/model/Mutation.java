@@ -1,16 +1,16 @@
 package com.lukgru.galgo.model;
 
-import java.util.function.Function;
+import com.lukgru.galgo.builder.mutation.MutationFunction;
 
 /**
  * Created by Łukasz on 2016-12-03.
  */
 public class Mutation<T> {
 
-    private final Function<T, T> mutationFunction;
+    private final MutationFunction<T> mutationFunction;
     private final Double probability;
 
-    public Mutation(Function<T, T> mutationFunction, Double probability) {
+    public Mutation(MutationFunction<T> mutationFunction, Double probability) {
         if (mutationFunction == null || probability == null) {
             throw new IllegalArgumentException("Mutation function nor mutation probability cannot be null");
         }
@@ -21,7 +21,7 @@ public class Mutation<T> {
         this.probability = probability;
     }
 
-    public Function<T, T> getMutationFunction() {
+    public MutationFunction<T> getMutationFunction() {
         return this.mutationFunction;
     }
 

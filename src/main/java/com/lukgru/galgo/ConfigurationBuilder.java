@@ -3,7 +3,10 @@ package com.lukgru.galgo;
 import com.lukgru.galgo.builder.mutation.MutationFunction;
 import com.lukgru.galgo.builder.population.PopulationAccessor;
 import com.lukgru.galgo.model.CrossoverFunction;
+import com.lukgru.galgo.model.FitnessFunction;
+import com.lukgru.galgo.model.Mutation;
 import com.lukgru.galgo.runner.GeneticAlgorithmRunner;
+import com.lukgru.galgo.runner.SimpleGeneticAlgorithmRunner;
 
 import java.util.function.Function;
 
@@ -13,8 +16,8 @@ import java.util.function.Function;
 public class ConfigurationBuilder<T> {
     private PopulationAccessor<T> populationAccessor;
     private Function<T, Integer> fitnessFunction;
-    private Integer fitnessFunctionTarger;
-    private CrossoverFunction crossoverFunction;
+    private Integer fitnessFunctionTarget;
+    private CrossoverFunction<T> crossoverFunction;
     private MutationFunction<T> mutationFunction;
     private Double mutationProbability;
 
@@ -29,7 +32,7 @@ public class ConfigurationBuilder<T> {
     }
 
     public ConfigurationBuilder<T> targeting(Integer fitnessFunctionTarger) {
-        this.fitnessFunctionTarger = fitnessFunctionTarger;
+        this.fitnessFunctionTarget = fitnessFunctionTarger;
         return this;
     }
 
@@ -49,6 +52,15 @@ public class ConfigurationBuilder<T> {
     }
 
     public GeneticAlgorithmRunner<T> runner() {
-        return null;
+        FitnessFunction<T> fitnessFunctionObject = new FitnessFunction<>(fitnessFunction, fitnessFunctionTarget);
+        Mutation<T> mutation = null;
+        if (mutationFunction != null) {
+            mutation = new Mutation<>(mutationFunction, mutationProbability);
+        }
+        return new SimpleGeneticAlgorithmRunner<T>(
+                populationAccessor,
+                fitnessFunctionObject,
+                crossoverFunction,
+                mutation);
     }
 }

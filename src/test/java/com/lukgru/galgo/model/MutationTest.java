@@ -1,8 +1,7 @@
 package com.lukgru.galgo.model;
 
+import com.lukgru.galgo.builder.mutation.MutationFunction;
 import org.junit.Test;
-
-import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
 
@@ -34,11 +33,11 @@ public class MutationTest {
     @Test
     public void shouldBeAbleToCreateValidMutation() {
         //given
-        Function<Object, Object> mutationFunction = a -> a;
+        MutationFunction<Integer> mutationFunction = a -> a;
         Double mutationProbability = 0.05;
 
         //when
-        Mutation<Object> mutation = new Mutation<>(mutationFunction, mutationProbability);
+        Mutation<Integer> mutation = new Mutation<>(mutationFunction, mutationProbability);
 
         //then
         assertEquals(mutationFunction, mutation.getMutationFunction());
