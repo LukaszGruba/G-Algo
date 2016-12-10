@@ -12,8 +12,6 @@ import java.util.function.Function;
  */
 public class SimplePopulationAccessor<T> implements PopulationAccessor<T>, FitnessFunctionBuilder<T> {
 
-    //TODO: remove suppress
-    @SuppressWarnings("unused")
     private final Collection<T> population;
 
     public SimplePopulationAccessor(Collection<T> population) {
@@ -27,7 +25,6 @@ public class SimplePopulationAccessor<T> implements PopulationAccessor<T>, Fitne
 
     @Override
     public Population<T> getPopulation() {
-        //TODO: return population
-        return null;
+        return new Population<>(population);
     }
 }
