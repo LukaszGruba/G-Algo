@@ -1,8 +1,7 @@
 package com.lukgru.galgo;
 
-import com.lukgru.galgo.builder.population.SimplePopulationAccessor;
 import com.lukgru.galgo.runner.GenerationResult;
-import com.lukgru.galgo.runner.GeneticAlgorithmRunner;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -12,6 +11,7 @@ import java.util.function.Supplier;
 /**
  * Created by Lukasz on 28.11.2016.
  */
+@Ignore("API test - should only compile")
 public class GAlgoAPITest {
 
     @Test

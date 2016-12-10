@@ -17,7 +17,7 @@ public class GenerationResult<T> {
 
     public T getBest() {
         Individual<T> bestIndividual = finalPopulation.getIndividuals().stream()
-                .max((a, b) -> a.getFitnessScore() - b.getFitnessScore())
+                .max((indA, indB) -> indA.getFitnessScore() - indB.getFitnessScore())
                 .get();
         return bestIndividual.getValue();
     }
