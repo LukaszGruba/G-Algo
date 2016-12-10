@@ -1,5 +1,6 @@
 package com.lukgru.galgo.runner;
 
+import com.lukgru.galgo.model.Individual;
 import com.lukgru.galgo.model.Population;
 
 /**
@@ -15,8 +16,10 @@ public class GenerationResult<T> {
     }
 
     public T getBest() {
-        //TODO: return best individual
-        return null;
+        Individual<T> bestIndividual = finalPopulation.getIndividuals().stream()
+                .max((a, b) -> a.getFitnessScore() - b.getFitnessScore())
+                .get();
+        return bestIndividual.getValue();
     }
 
     public int getIterations() {
