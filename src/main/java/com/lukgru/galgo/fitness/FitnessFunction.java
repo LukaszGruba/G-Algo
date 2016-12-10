@@ -1,4 +1,4 @@
-package com.lukgru.galgo.model;
+package com.lukgru.galgo.fitness;
 
 import java.util.function.Function;
 

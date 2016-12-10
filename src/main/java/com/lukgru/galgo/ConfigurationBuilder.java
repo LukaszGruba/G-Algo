@@ -1,10 +1,10 @@
 package com.lukgru.galgo;
 
-import com.lukgru.galgo.builder.mutation.MutationFunction;
-import com.lukgru.galgo.builder.population.PopulationAccessor;
-import com.lukgru.galgo.model.CrossoverFunction;
-import com.lukgru.galgo.model.FitnessFunction;
-import com.lukgru.galgo.model.Mutation;
+import com.lukgru.galgo.crossover.CrossoverFunction;
+import com.lukgru.galgo.fitness.FitnessFunction;
+import com.lukgru.galgo.mutation.Mutation;
+import com.lukgru.galgo.mutation.MutationFunction;
+import com.lukgru.galgo.population.PopulationAccessor;
 import com.lukgru.galgo.runner.GeneticAlgorithmRunner;
 import com.lukgru.galgo.runner.SimpleGeneticAlgorithmRunner;
 

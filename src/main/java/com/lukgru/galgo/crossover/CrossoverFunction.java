@@ -1,4 +1,4 @@
-package com.lukgru.galgo.model;
+package com.lukgru.galgo.crossover;
 
 /**
  * Created by Lukasz on 28.11.2016.

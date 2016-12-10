@@ -1,6 +1,4 @@
-package com.lukgru.galgo.builder.population;
-
-import com.lukgru.galgo.model.Population;
+package com.lukgru.galgo.population;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;

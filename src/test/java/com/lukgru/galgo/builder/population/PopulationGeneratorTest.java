@@ -1,6 +1,8 @@
 package com.lukgru.galgo.builder.population;
 
-import com.lukgru.galgo.model.Population;
+import com.lukgru.galgo.population.Population;
+import com.lukgru.galgo.population.PopulationAccessor;
+import com.lukgru.galgo.population.PopulationGenerator;
 import org.junit.Test;
 
 import java.util.function.Supplier;

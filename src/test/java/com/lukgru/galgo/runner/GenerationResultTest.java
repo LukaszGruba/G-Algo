@@ -1,7 +1,7 @@
 package com.lukgru.galgo.runner;
 
-import com.lukgru.galgo.model.Individual;
-import com.lukgru.galgo.model.Population;
+import com.lukgru.galgo.population.Individual;
+import com.lukgru.galgo.population.Population;
 import org.junit.Test;
 
 import java.util.Arrays;

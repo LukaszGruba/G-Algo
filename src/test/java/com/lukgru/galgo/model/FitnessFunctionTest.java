@@ -1,5 +1,6 @@
 package com.lukgru.galgo.model;
 
+import com.lukgru.galgo.fitness.FitnessFunction;
 import org.junit.Test;
 
 import java.util.function.Function;
