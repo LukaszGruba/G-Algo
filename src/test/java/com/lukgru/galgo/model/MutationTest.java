@@ -1,6 +1,7 @@
 package com.lukgru.galgo.model;
 
-import com.lukgru.galgo.builder.mutation.MutationFunction;
+import com.lukgru.galgo.mutation.Mutation;
+import com.lukgru.galgo.mutation.MutationFunction;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

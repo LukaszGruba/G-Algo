@@ -1,4 +1,4 @@
-package com.lukgru.galgo.model;
+package com.lukgru.galgo.population;
 
 import org.apache.commons.collections4.CollectionUtils;
 

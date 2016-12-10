@@ -1,8 +1,8 @@
 package com.lukgru.galgo;
 
-import com.lukgru.galgo.builder.population.PopulationAccessor;
-import com.lukgru.galgo.builder.population.PopulationGenerator;
-import com.lukgru.galgo.builder.population.SimplePopulationAccessor;
+import com.lukgru.galgo.population.PopulationAccessor;
+import com.lukgru.galgo.population.PopulationGenerator;
+import com.lukgru.galgo.population.SimplePopulationAccessor;
 
 import java.util.Collection;
 import java.util.function.Supplier;

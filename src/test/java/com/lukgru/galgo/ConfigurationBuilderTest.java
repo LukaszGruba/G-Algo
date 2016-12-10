@@ -1,8 +1,8 @@
 package com.lukgru.galgo;
 
-import com.lukgru.galgo.builder.mutation.MutationFunction;
-import com.lukgru.galgo.builder.population.PopulationAccessor;
-import com.lukgru.galgo.model.CrossoverFunction;
+import com.lukgru.galgo.mutation.MutationFunction;
+import com.lukgru.galgo.population.PopulationAccessor;
+import com.lukgru.galgo.crossover.CrossoverFunction;
 import com.lukgru.galgo.runner.GeneticAlgorithmRunner;
 import org.junit.Rule;
 import org.junit.Test;

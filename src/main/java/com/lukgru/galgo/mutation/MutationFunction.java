@@ -1,4 +1,4 @@
-package com.lukgru.galgo.builder.mutation;
+package com.lukgru.galgo.mutation;
 
 /**
  * Created by Lukasz on 07.12.2016.

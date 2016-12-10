@@ -1,5 +1,6 @@
 package com.lukgru.galgo.model;
 
+import com.lukgru.galgo.population.Individual;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

@@ -1,4 +1,4 @@
-package com.lukgru.galgo.model;
+package com.lukgru.galgo.population;
 
 /**
  * Created by Łukasz on 2016-12-03.

@@ -1,6 +1,4 @@
-package com.lukgru.galgo.model;
-
-import com.lukgru.galgo.builder.mutation.MutationFunction;
+package com.lukgru.galgo.mutation;
 
 /**
  * Created by Łukasz on 2016-12-03.
