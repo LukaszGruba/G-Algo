@@ -6,7 +6,7 @@ package com.lukgru.galgo.model;
 public class Individual<T> {
 
     private final T value;
-    private Integer fitnessValue;
+    private Integer fitnessScore;
 
     public Individual(T value) {
         if (value == null) {
@@ -19,12 +19,12 @@ public class Individual<T> {
         return this.value;
     }
 
-    public Integer getFitnessValue() {
-        return this.fitnessValue;
+    public Integer getFitnessScore() {
+        return this.fitnessScore;
     }
 
-    public void setFitnessValue(Integer fitnessValue) {
-        this.fitnessValue = fitnessValue;
+    public void setFitnessScore(Integer fitnessScore) {
+        this.fitnessScore = fitnessScore;
     }
 
     @Override
@@ -41,14 +41,14 @@ public class Individual<T> {
         if (!this.value.equals(that.value)) {
             return false;
         }
-        return this.fitnessValue != null ? this.fitnessValue.equals(that.fitnessValue) : that.fitnessValue == null;
+        return this.fitnessScore != null ? this.fitnessScore.equals(that.fitnessScore) : that.fitnessScore == null;
 
     }
 
     @Override
     public int hashCode() {
         int result = this.value.hashCode();
-        result = 31 * result + (this.fitnessValue != null ? this.fitnessValue.hashCode() : 0);
+        result = 31 * result + (this.fitnessScore != null ? this.fitnessScore.hashCode() : 0);
         return result;
     }
 }
