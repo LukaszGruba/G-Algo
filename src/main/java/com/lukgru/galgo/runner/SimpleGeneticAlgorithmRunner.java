@@ -16,7 +16,7 @@ import com.lukgru.galgo.population.PopulationAccessor;
 })
 public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T> {
 
-    private static final Mutation DEFAULT_MUTATION = new Mutation(a -> a, 0d);
+    private final Mutation<T> DEFAULT_MUTATION = new Mutation<>(a -> a, 0d);
 
     private PopulationAccessor<T> populationAccessor;
     private final FitnessFunction<T> fitnessFunction;
@@ -58,13 +58,9 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
         return new GenerationResult<>(population, iteration);
     }
 
-    private boolean solutionFound(Population<T> population, FitnessFunction<T> fitnessFunction) {
+    private Population<T> selection(Population<T> population, FitnessFunction<T> fitnessFunction) {
         //TODO: add implementation
-        return true;
-    }
-
-    private void mutate(Population<T> newPopulation) {
-        //TODO: add implementation
+        return null;
     }
 
     private Population<T> reproduce(Population<T> selectedForReproduction, CrossoverFunction<T> crossoverFunction) {
@@ -72,8 +68,12 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
         return null;
     }
 
-    private Population<T> selection(Population<T> population, FitnessFunction<T> fitnessFunction) {
+    private void mutate(Population<T> newPopulation) {
         //TODO: add implementation
-        return null;
+    }
+
+    private boolean solutionFound(Population<T> population, FitnessFunction<T> fitnessFunction) {
+        //TODO: add implementation
+        return true;
     }
 }
