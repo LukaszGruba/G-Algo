@@ -5,6 +5,7 @@ import com.lukgru.galgo.fitness.FitnessFunction;
 import com.lukgru.galgo.mutation.Mutation;
 import com.lukgru.galgo.population.Population;
 import com.lukgru.galgo.population.PopulationAccessor;
+import com.lukgru.galgo.runner.fitness.SimpleFitnessCalculator;
 import com.lukgru.galgo.runner.mutation.SimpleMutationRunner;
 import com.lukgru.galgo.runner.reproduction.SimpleReproductionRunner;
 import com.lukgru.galgo.runner.selection.SimpleSelectionRunner;
@@ -43,6 +44,7 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
         Population<T> population = populationAccessor.getPopulation();
         int iteration = 0;
         do {
+            computeFitness(population, fitnessFunction);
             Population<T> selectedForReproduction = selection(population, fitnessFunction);
             Population<T> newPopulation = reproduce(selectedForReproduction, crossoverFunction);
             mutate(newPopulation, mutation);
@@ -50,6 +52,10 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
             iteration++;
         } while (!solutionFound(population, fitnessFunction));
         return new GenerationResult<>(population, iteration);
+    }
+
+    private void computeFitness(Population<T> population, FitnessFunction<T> fitnessFunction) {
+        new SimpleFitnessCalculator<>(fitnessFunction).compute(population);
     }
 
     private Population<T> selection(Population<T> population, FitnessFunction<T> fitnessFunction) {
