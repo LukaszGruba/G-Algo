@@ -1,6 +1,7 @@
 package com.lukgru.galgo.population;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
@@ -12,9 +13,7 @@ public class PopulationGenerator<T> implements PopulationAccessor<T> {
     private Integer populationSize;
 
     public PopulationGenerator(Supplier<T> factory) {
-        if (factory == null) {
-            throw new NullPointerException("Factory cannot be null!");
-        }
+        Objects.requireNonNull(factory, "Factory cannot be null!");
         this.factory = factory;
     }
 

@@ -1,5 +1,6 @@
 package com.lukgru.galgo.fitness;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -10,12 +11,8 @@ public class FitnessFunction<T> {
     private final Integer target;
 
     public FitnessFunction(Function<T, Integer> fitnessFunction, Integer target) {
-        if (fitnessFunction == null) {
-            throw new IllegalArgumentException("Fitness function cannot be null.");
-        }
-        if (target == null) {
-            throw new IllegalArgumentException("Fitness target cannot be null.");
-        }
+        Objects.requireNonNull(fitnessFunction, "Fitness function cannot be null.");
+        Objects.requireNonNull(target, "Fitness target cannot be null.");
         this.fitnessFunction = fitnessFunction;
         this.target = target;
     }

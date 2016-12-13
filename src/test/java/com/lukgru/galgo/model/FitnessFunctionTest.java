@@ -12,12 +12,12 @@ import static org.junit.Assert.*;
  */
 public class FitnessFunctionTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void cannotCreateFitnessFunctionWithNullFitnessFunction() {
         new FitnessFunction<>(null, 1);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void cannotCreateFitnessFunctionWithNullTarget() {
         new FitnessFunction<>(a -> 1, null);
     }

@@ -1,8 +1,8 @@
 package com.lukgru.galgo;
 
+import com.lukgru.galgo.crossover.CrossoverFunction;
 import com.lukgru.galgo.mutation.MutationFunction;
 import com.lukgru.galgo.population.PopulationAccessor;
-import com.lukgru.galgo.crossover.CrossoverFunction;
 import com.lukgru.galgo.runner.GeneticAlgorithmRunner;
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class ConfigurationBuilderTest {
 
     @Test
     public void throwIfNoPopulationAccessor() {
-        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expect(NullPointerException.class);
         expectedException.expectMessage("Population accessor cannot be null.");
 
         ConfigurationBuilder<Integer> configurationBuilder = prepareBuilder();
@@ -47,7 +47,7 @@ public class ConfigurationBuilderTest {
 
     @Test
     public void throwIfNoFitnessFunction() {
-        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expect(NullPointerException.class);
         expectedException.expectMessage("Fitness function cannot be null.");
 
         ConfigurationBuilder<Integer> configurationBuilder = prepareBuilder();
@@ -56,7 +56,7 @@ public class ConfigurationBuilderTest {
 
     @Test
     public void throwIfNoFitnessTarget() {
-        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expect(NullPointerException.class);
         expectedException.expectMessage("Fitness target cannot be null.");
 
         ConfigurationBuilder<Integer> configurationBuilder = prepareBuilder();
@@ -65,7 +65,7 @@ public class ConfigurationBuilderTest {
 
     @Test
     public void throwIfNoCrossoverFunction() {
-        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expect(NullPointerException.class);
         expectedException.expectMessage("Crossover function cannot be null.");
 
         ConfigurationBuilder<Integer> configurationBuilder = prepareBuilder();

@@ -11,12 +11,12 @@ import static org.junit.Assert.assertEquals;
  */
 public class MutationTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void shouldBeImpossibleToCreateWithNullMutationFunction() {
         new Mutation<>(null, 0.5d);
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void shouldBeImpossibleToCreateWithNullProbabilityOfMutation() {
         new Mutation<>(a -> a, null);
     }

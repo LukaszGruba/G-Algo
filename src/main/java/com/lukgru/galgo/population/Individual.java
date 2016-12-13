@@ -1,5 +1,7 @@
 package com.lukgru.galgo.population;
 
+import java.util.Objects;
+
 /**
  * Created by Łukasz on 2016-12-03.
  */
@@ -9,9 +11,7 @@ public class Individual<T> {
     private Integer fitnessScore;
 
     public Individual(T value) {
-        if (value == null) {
-            throw new NullPointerException("Individual cannot be created with null value");
-        }
+        Objects.requireNonNull(value, "Individual cannot be created with null value");
         this.value = value;
     }
 

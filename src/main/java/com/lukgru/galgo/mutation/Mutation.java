@@ -1,5 +1,7 @@
 package com.lukgru.galgo.mutation;
 
+import java.util.Objects;
+
 /**
  * Created by Łukasz on 2016-12-03.
  */
@@ -9,9 +11,8 @@ public class Mutation<T> {
     private final Double probability;
 
     public Mutation(MutationFunction<T> mutationFunction, Double probability) {
-        if (mutationFunction == null || probability == null) {
-            throw new IllegalArgumentException("Mutation function nor mutation probability cannot be null");
-        }
+        Objects.requireNonNull(mutationFunction, "Mutation function cannot be null.");
+        Objects.requireNonNull(probability, "Mutation probability cannot be null");
         if (probability < 0.0d || probability > 1.0d) {
             throw new IllegalArgumentException("Probability of mutation has to be fraction between 0 and 1");
         }
