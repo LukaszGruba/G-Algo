@@ -7,7 +7,7 @@ import java.util.Objects;
  */
 public class Individual<T> {
 
-    private final T value;
+    private T value;
     private Integer fitnessScore;
 
     public Individual(T value) {
@@ -17,6 +17,11 @@ public class Individual<T> {
 
     public T getValue() {
         return this.value;
+    }
+
+    public void setValue(T value) {
+        Objects.requireNonNull(value, "Individual cannot have null value");
+        this.value = value;
     }
 
     public Integer getFitnessScore() {
