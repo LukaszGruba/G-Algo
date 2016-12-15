@@ -1,6 +1,7 @@
 package com.lukgru.galgo.runner.mutation;
 
 import com.lukgru.galgo.mutation.Mutation;
+import com.lukgru.galgo.mutation.MutationFunction;
 import com.lukgru.galgo.population.Population;
 
 /**
@@ -16,6 +17,10 @@ public class SimpleMutationRunner<T> implements MutationRunner<T> {
 
     @Override
     public void mutate(Population<T> population) {
-        //TODO: implement
+        Double probability = mutation.getProbability();
+        MutationFunction<T> mutationFunction = mutation.getMutationFunction();
+        population.getIndividuals().stream()
+                .filter(individual -> Math.random() < probability)
+                .forEach(individual -> individual.setValue(mutationFunction.mutate(individual.getValue()))); //TODO: simplify this
     }
 }
