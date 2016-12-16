@@ -43,6 +43,7 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
     public GenerationResult<T> generate() {
         Population<T> population = populationAccessor.getPopulation();
         int iteration = 0;
+        int epsilon = -1; //FIXME: provide this value from somewhere
         do {
             computeFitness(population, fitnessFunction);
             Population<T> selectedForReproduction = selection(population, fitnessFunction);
@@ -50,10 +51,12 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
             mutate(newPopulation, mutation);
             population = newPopulation;
             iteration++;
-        } while (!solutionFound(population, fitnessFunction));
+        } while (!solutionFound(population, fitnessFunction, epsilon));
         return new GenerationResult<>(population, iteration);
     }
 
+    //TODO: make below runners dependencies
+    //TODO: population, fitnessFunction etc. should not be dependencies but parameters or should be kept in some aggregating object
     private void computeFitness(Population<T> population, FitnessFunction<T> fitnessFunction) {
         new SimpleFitnessCalculator<>(fitnessFunction).compute(population);
     }
@@ -70,7 +73,7 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
         new SimpleMutationRunner<>(mutation).mutate(newPopulation);
     }
 
-    private boolean solutionFound(Population<T> population, FitnessFunction<T> fitnessFunction) {
-        return new SimpleSolutionSeeker<>(fitnessFunction).isSolutionFound(population);
+    private boolean solutionFound(Population<T> population, FitnessFunction<T> fitnessFunction, int epsilon) {
+        return new SimpleSolutionSeeker<>(fitnessFunction, epsilon).isSolutionFound(population);
     }
 }
