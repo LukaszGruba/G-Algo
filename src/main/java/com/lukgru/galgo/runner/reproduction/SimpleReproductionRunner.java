@@ -1,7 +1,10 @@
 package com.lukgru.galgo.runner.reproduction;
 
 import com.lukgru.galgo.crossover.CrossoverFunction;
+import com.lukgru.galgo.population.Individual;
 import com.lukgru.galgo.population.Population;
+
+import java.util.Collection;
 
 /**
  * Created by Lukasz on 12.12.2016.
@@ -16,7 +19,7 @@ public class SimpleReproductionRunner<T> implements ReproductionRunner<T> {
 
     @Override
     public Population<T> reproduce(Population<T> selectedForReproduction) {
-        //TODO: implement
-        return null;
+        Collection<Individual<T>> individuals = selectedForReproduction.getIndividuals();
+        individuals
     }
 }
