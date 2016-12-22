@@ -1,6 +1,5 @@
 package com.lukgru.galgo.runner.solution;
 
-import com.lukgru.galgo.fitness.FitnessFunction;
 import com.lukgru.galgo.population.Individual;
 import com.lukgru.galgo.population.Population;
 

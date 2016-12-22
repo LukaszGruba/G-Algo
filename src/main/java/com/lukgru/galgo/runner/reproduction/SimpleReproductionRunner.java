@@ -9,6 +9,7 @@ import java.util.Collection;
 /**
  * Created by Lukasz on 12.12.2016.
  */
+@SuppressWarnings("PMD")
 public class SimpleReproductionRunner<T> implements ReproductionRunner<T> {
 
     private CrossoverFunction<T> crossoverFunction;
@@ -20,6 +21,6 @@ public class SimpleReproductionRunner<T> implements ReproductionRunner<T> {
     @Override
     public Population<T> reproduce(Population<T> selectedForReproduction) {
         Collection<Individual<T>> individuals = selectedForReproduction.getIndividuals();
-        return null;
+        return null; //TODO: implement
     }
 }

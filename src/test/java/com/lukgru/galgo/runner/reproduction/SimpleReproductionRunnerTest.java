@@ -3,6 +3,7 @@ package com.lukgru.galgo.runner.reproduction;
 import com.lukgru.galgo.crossover.CrossoverFunction;
 import com.lukgru.galgo.population.Individual;
 import com.lukgru.galgo.population.Population;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Created by Lukasz on 15.12.2016.
  */
+@Ignore("not implemented yet")
 public class SimpleReproductionRunnerTest {
 
     @Test
