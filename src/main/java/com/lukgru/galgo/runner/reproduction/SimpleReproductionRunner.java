@@ -20,6 +20,6 @@ public class SimpleReproductionRunner<T> implements ReproductionRunner<T> {
     @Override
     public Population<T> reproduce(Population<T> selectedForReproduction) {
         Collection<Individual<T>> individuals = selectedForReproduction.getIndividuals();
-        individuals
+        return null;
     }
 }
