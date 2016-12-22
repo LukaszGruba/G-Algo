@@ -28,7 +28,7 @@ public class ConfigurationBuilderTest {
     private PopulationAccessor<Integer> populationAccessor;
 
     @Mock
-    private Function<Integer, Integer> fitnessFunction;
+    private Function<Integer, Double> fitnessFunction;
 
     @Mock
     private CrossoverFunction<Integer> crossoverFunction;
@@ -89,7 +89,7 @@ public class ConfigurationBuilderTest {
     private ConfigurationBuilder<Integer> prepareBuilder() {
         return new ConfigurationBuilder<Integer>()
                 .withPopulationAccessor(populationAccessor)
-                .withFitnessFunction(fitnessFunction).targeting(0)
+                .withFitnessFunction(fitnessFunction).targeting(0.0)
                 .withCrossover(crossoverFunction)
                 .withMutationFunction(mutationFunction)
                 .withMutationProbability(0.05d);

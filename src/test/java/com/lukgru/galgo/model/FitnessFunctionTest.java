@@ -14,19 +14,19 @@ public class FitnessFunctionTest {
 
     @Test(expected = NullPointerException.class)
     public void cannotCreateFitnessFunctionWithNullFitnessFunction() {
-        new FitnessFunction<>(null, 1);
+        new FitnessFunction<>(null, 1.0);
     }
 
     @Test(expected = NullPointerException.class)
     public void cannotCreateFitnessFunctionWithNullTarget() {
-        new FitnessFunction<>(a -> 1, null);
+        new FitnessFunction<>(a -> 1.0, null);
     }
     
     @Test
     public void shouldSetPropertiesProperly() {
         //given
-        Function<Object, Integer> function = a -> 1;
-        Integer target = 1;
+        Function<Object, Double> function = a -> 1.0;
+        Double target = 1.0;
 
         //when
         FitnessFunction<Object> fitnessFunction = new FitnessFunction<>(function, target);

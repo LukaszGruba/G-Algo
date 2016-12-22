@@ -5,8 +5,8 @@ import com.lukgru.galgo.population.Population;
 /**
  * Created by Lukasz on 12.12.2016.
  */
-public interface SolutionSeeker<T> {
+public interface SolutionSeeker {
 
-    boolean isSolutionFound(Population<T> population);
+    <T> boolean isSolutionFound(Population<T> population);
 
 }
