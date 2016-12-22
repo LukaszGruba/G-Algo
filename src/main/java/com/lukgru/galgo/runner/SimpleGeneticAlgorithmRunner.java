@@ -74,6 +74,6 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
     }
 
     private boolean solutionFound(Population<T> population, FitnessFunction<T> fitnessFunction, int epsilon) {
-        return new SimpleSolutionSeeker<>(fitnessFunction, epsilon).isSolutionFound(population);
+        return new SimpleSolutionSeeker(fitnessFunction.getTarget(), epsilon).isSolutionFound(population);
     }
 }

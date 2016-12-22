@@ -1,11 +1,15 @@
 package com.lukgru.galgo.runner.solution;
 
-import com.lukgru.galgo.fitness.FitnessFunction;
+import com.lukgru.galgo.builder.population.TestPopulationProvider;
+import com.lukgru.galgo.builder.population.TestPopulationProvider.PopulationMockBuilder;
 import com.lukgru.galgo.population.Individual;
 import com.lukgru.galgo.population.Population;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.stream.IntStream;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -17,14 +21,13 @@ public class SimpleSolutionSeekerTest {
     @Test
     public void shouldMeetCriteriaForGreaterThanTarget() {
         //given
-        FitnessFunction<Integer> fitnessFunction = mock(FitnessFunction.class);
-        when(fitnessFunction.getTarget()).thenReturn(0);
-        int epsilon = 2;
+        double target = 0.0;
+        double epsilon = 2.0;
         Individual<Integer> individual = mock(Individual.class);
-        when(individual.getFitnessScore()).thenReturn(1);
+        when(individual.getFitnessScore()).thenReturn(1d);
 
         //when
-        boolean solutionFound = new SimpleSolutionSeeker<>(fitnessFunction, epsilon).meetsSolutionCriteria(individual);
+        boolean solutionFound = new SimpleSolutionSeeker(target, epsilon).meetsSolutionCriteria(individual);
 
         //then
         assertTrue(solutionFound);
@@ -33,14 +36,13 @@ public class SimpleSolutionSeekerTest {
     @Test
     public void shouldMeetCriteriaForSmallerThanTarget() {
         //given
-        FitnessFunction<Integer> fitnessFunction = mock(FitnessFunction.class);
-        when(fitnessFunction.getTarget()).thenReturn(0);
-        int epsilon = 2;
+        double target = 0.0;
+        double epsilon = 2.0;
         Individual<Integer> individual = mock(Individual.class);
-        when(individual.getFitnessScore()).thenReturn(-1);
+        when(individual.getFitnessScore()).thenReturn(-1d);
 
         //when
-        boolean solutionFound = new SimpleSolutionSeeker<>(fitnessFunction, epsilon).meetsSolutionCriteria(individual);
+        boolean solutionFound = new SimpleSolutionSeeker(target, epsilon).meetsSolutionCriteria(individual);
 
         //then
         assertTrue(solutionFound);
@@ -49,14 +51,13 @@ public class SimpleSolutionSeekerTest {
     @Test
     public void shouldNotMeetCriteriaForGreaterThanTarget() {
         //given
-        FitnessFunction<Integer> fitnessFunction = mock(FitnessFunction.class);
-        when(fitnessFunction.getTarget()).thenReturn(0);
-        int epsilon = 1;
+        double target = 0.0;
+        double epsilon = 1.0;
         Individual<Integer> individual = mock(Individual.class);
-        when(individual.getFitnessScore()).thenReturn(2);
+        when(individual.getFitnessScore()).thenReturn(2d);
 
         //when
-        boolean solutionFound = new SimpleSolutionSeeker<>(fitnessFunction, epsilon).meetsSolutionCriteria(individual);
+        boolean solutionFound = new SimpleSolutionSeeker(target, epsilon).meetsSolutionCriteria(individual);
 
         //then
         assertFalse(solutionFound);
@@ -65,14 +66,13 @@ public class SimpleSolutionSeekerTest {
     @Test
     public void shouldNotMeetCriteriaForSmallerThanTarget() {
         //given
-        FitnessFunction<Integer> fitnessFunction = mock(FitnessFunction.class);
-        when(fitnessFunction.getTarget()).thenReturn(0);
-        int epsilon = 1;
+        double target = 0.0;
+        double epsilon = 1.0;
         Individual<Integer> individual = mock(Individual.class);
-        when(individual.getFitnessScore()).thenReturn(-2);
+        when(individual.getFitnessScore()).thenReturn(-2d);
 
         //when
-        boolean solutionFound = new SimpleSolutionSeeker<>(fitnessFunction, epsilon).meetsSolutionCriteria(individual);
+        boolean solutionFound = new SimpleSolutionSeeker(target, epsilon).meetsSolutionCriteria(individual);
 
         //then
         assertFalse(solutionFound);
@@ -81,13 +81,14 @@ public class SimpleSolutionSeekerTest {
     @Test
     public void shouldFindSolution() {
         //given
-        FitnessFunction<Integer> fitnessFunction = mock(FitnessFunction.class);
-        when(fitnessFunction.getTarget()).thenReturn(0);
-        int epsilon = 1;
-        Population<Integer> population = null; //FIXME: should use test population generator
+        double target = 13.0;
+        double epsilon = 1.0;
+        PopulationMockBuilder<Integer> builder = TestPopulationProvider.populationMockBuilder();
+        IntStream.range(-50, 50).forEach(i -> builder.add(i, i));
+        Population<Integer> population = builder.build();
 
         //when
-        boolean solutionFound = new SimpleSolutionSeeker<>(fitnessFunction, epsilon).isSolutionFound(population);
+        boolean solutionFound = new SimpleSolutionSeeker(target, epsilon).isSolutionFound(population);
 
         //then
         assertTrue(solutionFound);
@@ -96,13 +97,14 @@ public class SimpleSolutionSeekerTest {
     @Test
     public void shouldNotFindSolution() {
         //given
-        FitnessFunction<Integer> fitnessFunction = mock(FitnessFunction.class);
-        when(fitnessFunction.getTarget()).thenReturn(0);
-        int epsilon = 1;
-        Population<Integer> population = null; //FIXME: should use test population generator
+        double target = 12.5;
+        double epsilon = 0.5d;
+        PopulationMockBuilder<Integer> builder = TestPopulationProvider.populationMockBuilder();
+        IntStream.range(-50, 50).forEach(i -> builder.add(i, i));
+        Population<Integer> population = builder.build();
 
         //when
-        boolean solutionFound = new SimpleSolutionSeeker<>(fitnessFunction, epsilon).isSolutionFound(population);
+        boolean solutionFound = new SimpleSolutionSeeker(target, epsilon).isSolutionFound(population);
 
         //then
         assertFalse(solutionFound);
