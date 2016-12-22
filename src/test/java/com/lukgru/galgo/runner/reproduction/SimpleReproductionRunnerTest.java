@@ -5,9 +5,7 @@ import com.lukgru.galgo.population.Individual;
 import com.lukgru.galgo.population.Population;
 import org.junit.Test;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.lukgru.galgo.builder.population.TestPopulationProvider.generatePopulation;
 import static java.util.stream.Collectors.toList;

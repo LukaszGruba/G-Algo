@@ -21,7 +21,7 @@ public class GAlgoAPITest {
 
         //when
         GenerationResult result = GAlgo.fromPopulation(initPopulation)
-                .withFitnessFunction((a) -> 123 - a).targeting(0)
+                .withFitnessFunction((a) -> 123.0 - a).targeting(0.0)
                 .withCrossover((a, b) -> (a + b) / 2)
                 .withMutationFunction((a) -> (a)).withMutationProbability(0.05d)
                 .runner().generate();
@@ -41,7 +41,7 @@ public class GAlgoAPITest {
         //then
         GenerationResult<Integer> result = GAlgo.fromGeneratedPopulation(factory)
                 .withSize(populationSize)
-                .withFitnessFunction((a) -> 123 - a).targeting(0)
+                .withFitnessFunction((a) -> 123.0 - a).targeting(0.0)
                 .withCrossover((a, b) -> (a + b) / 2)
                 .withMutationFunction((a) -> (a)).withMutationProbability(0.05d)
                 .runner().generate();
