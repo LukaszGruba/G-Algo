@@ -16,8 +16,8 @@ import static org.mockito.Mockito.when;
  */
 public class GenerationResultTest {
 
-    private static final int BEST_SCORE = Integer.MAX_VALUE;
-    private static final int WORST_SCORE = 0;
+    private static final double BEST_SCORE = Integer.MAX_VALUE;
+    private static final double WORST_SCORE = 0;
 
     
     @Test
@@ -37,19 +37,19 @@ public class GenerationResultTest {
 
     private Collection<Individual<Integer>> mockIndividuals() {
         return Arrays.asList(
-                mockIndividual(1, 15),
-                mockIndividual(2, 12),
-                mockIndividual(3, 3),
+                mockIndividual(1, 15.0),
+                mockIndividual(2, 12.0),
+                mockIndividual(3, 3.0),
                 mockIndividual(4, BEST_SCORE),
-                mockIndividual(5, 7182),
+                mockIndividual(5, 7182.0),
                 mockIndividual(6, WORST_SCORE),
-                mockIndividual(7, 23),
-                mockIndividual(8, 19999)
+                mockIndividual(7, 23.0),
+                mockIndividual(8, 19999.0)
         );
     }
 
-    private <T> Individual<T> mockIndividual(T value, int fitnessScore) {
-        Individual individual = mock(Individual.class);
+    private <T> Individual<T> mockIndividual(T value, double fitnessScore) {
+        Individual<T> individual = mock(Individual.class);
         when(individual.getValue()).thenReturn(value);
         when(individual.getFitnessScore()).thenReturn(fitnessScore);
         return individual;

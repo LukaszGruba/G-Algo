@@ -15,8 +15,8 @@ import java.util.function.Function;
  */
 public class ConfigurationBuilder<T> {
     private PopulationAccessor<T> populationAccessor;
-    private Function<T, Integer> fitnessFunction;
-    private Integer fitnessFunctionTarget;
+    private Function<T, Double> fitnessFunction;
+    private Double fitnessFunctionTarget;
     private CrossoverFunction<T> crossoverFunction;
     private MutationFunction<T> mutationFunction;
     private Double mutationProbability;
@@ -26,12 +26,12 @@ public class ConfigurationBuilder<T> {
         return this;
     }
 
-    public ConfigurationBuilder<T> withFitnessFunction(Function<T, Integer> fitnessFunction) {
+    public ConfigurationBuilder<T> withFitnessFunction(Function<T, Double> fitnessFunction) {
         this.fitnessFunction = fitnessFunction;
         return this;
     }
 
-    public ConfigurationBuilder<T> targeting(Integer fitnessFunctionTarger) {
+    public ConfigurationBuilder<T> targeting(Double fitnessFunctionTarger) {
         this.fitnessFunctionTarget = fitnessFunctionTarger;
         return this;
     }
@@ -57,7 +57,7 @@ public class ConfigurationBuilder<T> {
         if (mutationFunction != null) {
             mutation = new Mutation<>(mutationFunction, mutationProbability);
         }
-        return new SimpleGeneticAlgorithmRunner<T>(
+        return new SimpleGeneticAlgorithmRunner<>(
                 populationAccessor,
                 fitnessFunctionObject,
                 crossoverFunction,

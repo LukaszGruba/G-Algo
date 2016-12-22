@@ -5,18 +5,18 @@ import com.lukgru.galgo.fitness.FitnessFunction;
 import com.lukgru.galgo.mutation.Mutation;
 import com.lukgru.galgo.population.Population;
 import com.lukgru.galgo.population.PopulationAccessor;
+import com.lukgru.galgo.runner.fitness.SimpleFitnessCalculator;
+import com.lukgru.galgo.runner.mutation.SimpleMutationRunner;
+import com.lukgru.galgo.runner.reproduction.SimpleReproductionRunner;
+import com.lukgru.galgo.runner.selection.SimpleSelectionRunner;
+import com.lukgru.galgo.runner.solution.SimpleSolutionSeeker;
+
+import java.util.Objects;
 
 /**
  * Created by Łukasz on 2016-11-28.
  */
-//TODO: remove after providing implementation
-@SuppressWarnings({
-        "PMD.UnusedPrivateField",
-        "PMD.UnusedFormalParameter"
-})
 public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T> {
-
-    private final Mutation<T> DEFAULT_MUTATION = new Mutation<>(a -> a, 0d);
 
     private PopulationAccessor<T> populationAccessor;
     private final FitnessFunction<T> fitnessFunction;
@@ -28,52 +28,52 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
         this.populationAccessor = populationAccessor;
         this.fitnessFunction = fitnessFunction;
         this.crossoverFunction = crossoverFunction;
-        this.mutation = mutation != null ? mutation : DEFAULT_MUTATION;
+        Mutation<T> defaultMutation = new Mutation<>(a -> a, 0d);
+        this.mutation = mutation != null ? mutation : defaultMutation;
         validate();
     }
 
     private void validate() {
-        if (populationAccessor == null) {
-            throw new IllegalArgumentException("Population accessor cannot be null.");
-        }
-        if (fitnessFunction == null) {
-            throw new IllegalArgumentException("Fitness function cannot be null.");
-        }
-        if (crossoverFunction == null) {
-            throw new IllegalArgumentException("Crossover function cannot be null.");
-        }
+        Objects.requireNonNull(populationAccessor, "Population accessor cannot be null.");
+        Objects.requireNonNull(fitnessFunction, "Fitness function cannot be null.");
+        Objects.requireNonNull(crossoverFunction, "Crossover function cannot be null.");
     }
 
     @Override
     public GenerationResult<T> generate() {
         Population<T> population = populationAccessor.getPopulation();
         int iteration = 0;
+        int epsilon = -1; //FIXME: provide this value from somewhere
         do {
+            computeFitness(population, fitnessFunction);
             Population<T> selectedForReproduction = selection(population, fitnessFunction);
             Population<T> newPopulation = reproduce(selectedForReproduction, crossoverFunction);
-            mutate(newPopulation);
+            mutate(newPopulation, mutation);
             population = newPopulation;
             iteration++;
-        } while (!solutionFound(population, fitnessFunction));
+        } while (!solutionFound(population, fitnessFunction, epsilon));
         return new GenerationResult<>(population, iteration);
     }
 
+    //TODO: make below runners dependencies
+    //TODO: population, fitnessFunction etc. should not be dependencies but parameters or should be kept in some aggregating object
+    private void computeFitness(Population<T> population, FitnessFunction<T> fitnessFunction) {
+        new SimpleFitnessCalculator<>(fitnessFunction).compute(population);
+    }
+
     private Population<T> selection(Population<T> population, FitnessFunction<T> fitnessFunction) {
-        //TODO: add implementation
-        return null;
+        return new SimpleSelectionRunner<>(fitnessFunction).selectForReproduction(population);
     }
 
     private Population<T> reproduce(Population<T> selectedForReproduction, CrossoverFunction<T> crossoverFunction) {
-        //TODO: add implementation
-        return null;
+        return new SimpleReproductionRunner<>(crossoverFunction).reproduce(selectedForReproduction);
     }
 
-    private void mutate(Population<T> newPopulation) {
-        //TODO: add implementation
+    private void mutate(Population<T> newPopulation, Mutation<T> mutation) {
+        new SimpleMutationRunner<>(mutation).mutate(newPopulation);
     }
 
-    private boolean solutionFound(Population<T> population, FitnessFunction<T> fitnessFunction) {
-        //TODO: add implementation
-        return true;
+    private boolean solutionFound(Population<T> population, FitnessFunction<T> fitnessFunction, int epsilon) {
+        return new SimpleSolutionSeeker(fitnessFunction.getTarget(), epsilon).isSolutionFound(population);
     }
 }
