@@ -6,6 +6,7 @@ import com.lukgru.galgo.population.Population;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -45,6 +46,7 @@ public class SimpleReproductionRunnerTest {
         Integer parent1 = 100;
         Integer parent2 = 1000;
         CrossoverFunction<Integer> crossoverFunction = mock(CrossoverFunction.class);
+        when(crossoverFunction.apply(anyInt(), anyInt())).thenReturn(0);
         Population<Integer> parents = generatePopulation(parent1, parent2);
 
         //when
@@ -60,6 +62,7 @@ public class SimpleReproductionRunnerTest {
         Integer parent1 = 100;
         Integer parent2 = 1000;
         CrossoverFunction<Integer> crossoverFunction = mock(CrossoverFunction.class);
+        when(crossoverFunction.apply(anyInt(), anyInt())).thenReturn(0);
         Population<Integer> parents = generatePopulation(parent1, parent2);
 
         //when
@@ -125,9 +128,8 @@ public class SimpleReproductionRunnerTest {
         assertThat(childrenList, hasItem(new ComplexObj(150, "ccbbaa aabbcc", -100.0, asList(2, 3, 4, 5, 1, 2, 3, 4))));
         assertThat(childrenList, hasItem(new ComplexObj(1850, "abba led zeppelin", -76.35, asList(1, 2, 3, 4, 12, 11, 10, 9))));
         assertThat(childrenList, hasItem(new ComplexObj(1850, "led zeppelin abba", 76.35, asList(12, 11, 10, 9, 1, 2, 3, 4))));
-        assertThat(childrenList, hasItem(new ComplexObj(50500, "To be or not to be? ", 3200.0, asList(89, 0))));
-        assertThat(childrenList, hasItem(new ComplexObj(50500, " To be or not to be?", -3200.0, asList(89, 0))));
-
+        assertThat(childrenList, hasItem(new ComplexObj(50500, " To be or not to be?", 3200.0, asList(89, 0))));
+        assertThat(childrenList, hasItem(new ComplexObj(50500, "To be or not to be? ", -3200.0, asList(89, 0))));
     }
 
     private class ComplexObj {
@@ -141,6 +143,39 @@ public class SimpleReproductionRunnerTest {
             this.stringVal = stringVal;
             this.doubleVal = doubleVal;
             this.listVal = listVal;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ComplexObj that = (ComplexObj) o;
+
+            if (longVal != that.longVal) return false;
+            if (stringVal != null ? !stringVal.equals(that.stringVal) : that.stringVal != null) return false;
+            if (doubleVal != null ? !doubleVal.equals(that.doubleVal) : that.doubleVal != null) return false;
+            return listVal != null ? areListsEqual(listVal, that.listVal) : that.listVal == null;
+
+        }
+
+        private boolean areListsEqual(List l1, List l2) {
+            if (l1.size() != l2.size()) return false;
+            Iterator iterator1 = l1.iterator();
+            Iterator iterator2 = l2.iterator();
+            while (iterator1.hasNext()) {
+                if (!iterator1.next().equals(iterator2.next())) return false;
+            }
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = (int) (longVal ^ (longVal >>> 32));
+            result = 31 * result + (stringVal != null ? stringVal.hashCode() : 0);
+            result = 31 * result + (doubleVal != null ? doubleVal.hashCode() : 0);
+            result = 31 * result + (listVal != null ? listVal.hashCode() : 0);
+            return result;
         }
     }
 
