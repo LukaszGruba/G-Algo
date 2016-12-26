@@ -11,6 +11,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,8 +23,14 @@ public class TestPopulationProvider {
     public static <T> Population<T> generatePopulation(Supplier<T> supplier, int size) {
         List<T> individuals = Stream.generate(supplier)
                 .limit(size)
-                .collect(Collectors.toList());
+                .collect(toList());
         return new Population<>(individuals);
+    }
+
+    public static <T> Population<T> generatePopulation(Supplier<T> valueSupplier, Supplier<Double> fitnessSupplier, int size) {
+        Population<T> population = generatePopulation(valueSupplier, size);
+        population.getIndividuals().forEach(i -> i.setFitnessScore(fitnessSupplier.get()));
+        return population;
     }
 
     public static <T> Population<T> generatePopulation(T... values) {
