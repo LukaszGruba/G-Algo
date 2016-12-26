@@ -36,9 +36,6 @@ public class SimpleReproductionRunner<T> implements ReproductionRunner<T> {
     }
 
     private Stream<ParentsPair> getParentsPairs(Collection<Individual<T>> parents) {
-        if (parents.size() % 2 != 0) {
-            parents.add(parents.iterator().next());
-        }
         Iterator<Individual<T>> parentsIter = parents.iterator();
         return IntStream.range(0, parents.size() / 2)
                 .mapToObj(i -> new ParentsPair(parentsIter.next(), parentsIter.next()));
