@@ -37,7 +37,7 @@ public class TestPopulationProvider {
     public static class PopulationMockBuilder<T> {
         private Collection<Individual<T>> individuals = new ArrayList<>();
 
-        public PopulationMockBuilder<T> add(T value, int fitnessScore) {
+        public PopulationMockBuilder<T> add(T value, double fitnessScore) {
             Individual<T> individual = mock(Individual.class);
             when(individual.getValue()).thenReturn(value);
             when(individual.getFitnessScore()).thenReturn(fitnessScore);

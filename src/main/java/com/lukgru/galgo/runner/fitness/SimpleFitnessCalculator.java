@@ -18,7 +18,7 @@ public class SimpleFitnessCalculator<T> implements FitnessCalculator<T> {
     public void compute(Population<T> population) {
         population.getIndividuals().forEach(individual -> {
             T value = individual.getValue();
-            Integer fitnessValue = fitnessFunction.getFitnessFunction().apply(value);
+            Double fitnessValue = fitnessFunction.getFitnessFunction().apply(value);
             individual.setFitnessScore(fitnessValue);
         });
     }

@@ -7,8 +7,8 @@ import java.util.Objects;
  */
 public class Individual<T> {
 
-    private final T value;
-    private Integer fitnessScore;
+    private T value;
+    private Double fitnessScore;
 
     public Individual(T value) {
         Objects.requireNonNull(value, "Individual cannot be created with null value");
@@ -19,11 +19,16 @@ public class Individual<T> {
         return this.value;
     }
 
-    public Integer getFitnessScore() {
+    public void setValue(T value) {
+        Objects.requireNonNull(value, "Individual cannot have null value");
+        this.value = value;
+    }
+
+    public Double getFitnessScore() {
         return this.fitnessScore;
     }
 
-    public void setFitnessScore(Integer fitnessScore) {
+    public void setFitnessScore(Double fitnessScore) {
         this.fitnessScore = fitnessScore;
     }
 
