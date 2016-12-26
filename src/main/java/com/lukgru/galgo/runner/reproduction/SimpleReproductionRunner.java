@@ -1,5 +1,7 @@
 package com.lukgru.galgo.runner.reproduction;
 
+import static java.util.stream.Collectors.toList;
+
 import com.lukgru.galgo.crossover.CrossoverFunction;
 import com.lukgru.galgo.population.Individual;
 import com.lukgru.galgo.population.Population;
@@ -9,8 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * Created by Lukasz on 12.12.2016.
