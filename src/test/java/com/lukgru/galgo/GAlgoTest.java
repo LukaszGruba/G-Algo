@@ -24,7 +24,7 @@ public class GAlgoTest {
         
         //when
         GenerationResult<Integer> generationResult = GAlgo.fromPopulation(initialPopulation)
-                .withFitnessFunction(x -> (14.0 * x) - 28).targeting(0.0)
+                .withFitnessFunction(x -> (14.0 * x) - 28).targeting(0.0).withEpsilon(0.1)
                 .withCrossover((a, b) -> (a + b) / 2)
                 .withMutationFunction(a -> -a).withMutationProbability(0.1)
                 .runner().generate();
@@ -41,7 +41,7 @@ public class GAlgoTest {
 
         //when
         GenerationResult<Integer> generationResult = GAlgo.fromPopulation(initialPopulation)
-                .withFitnessFunction(x -> (x*x) - (2.0 * x) + 1).targeting(0.0)
+                .withFitnessFunction(x -> (x*x) - (2.0 * x) + 1).targeting(0.0).withEpsilon(0.1)
                 .withCrossover((a, b) -> (a + b) / 2)
                 .withMutationFunction(a -> -a).withMutationProbability(0.1)
                 .runner().generate();
@@ -58,7 +58,7 @@ public class GAlgoTest {
 
         //when
         GenerationResult<Integer> generationResult = GAlgo.fromPopulation(initialPopulation)
-                .withFitnessFunction(x -> (x - 90.0) * (x + 20.0)).targeting(0.0)
+                .withFitnessFunction(x -> (x - 90.0) * (x + 20.0)).targeting(0.0).withEpsilon(0.1)
                 .withCrossover((a, b) -> (a + b) / 2)
                 .withMutationFunction(a -> -a).withMutationProbability(0.1)
                 .runner().generate();
@@ -100,7 +100,7 @@ public class GAlgoTest {
 
         //when
         GenerationResult<VariablesPair> generationResult = GAlgo.fromPopulation(initialPopulation)
-                .withFitnessFunction(v -> (v.x - 90.0) * (v.y + 20.0)).targeting(0.0)
+                .withFitnessFunction(v -> (v.x - 90.0) * (v.y + 20.0)).targeting(0.0).withEpsilon(0.1)
                 .withCrossover((a, b) -> new VariablesPair(a.x - b.x / 2, a.y - b.y / 2))
                 .withMutationFunction(mutationFunction)
                 .withMutationProbability(0.1)

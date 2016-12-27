@@ -21,7 +21,7 @@ public class GAlgoAPITest {
 
         //when
         GenerationResult result = GAlgo.fromPopulation(initPopulation)
-                .withFitnessFunction((a) -> 123.0 - a).targeting(0.0)
+                .withFitnessFunction((a) -> 123.0 - a).targeting(0.0).withEpsilon(0.1)
                 .withCrossover((a, b) -> (a + b) / 2)
                 .withMutationFunction((a) -> (a)).withMutationProbability(0.05d)
                 .runner().generate();

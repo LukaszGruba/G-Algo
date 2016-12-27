@@ -20,13 +20,15 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
 
     private PopulationAccessor<T> populationAccessor;
     private final FitnessFunction<T> fitnessFunction;
+    private Double epsilon;
     private final CrossoverFunction<T> crossoverFunction;
     private final Mutation<T> mutation;
 
     public SimpleGeneticAlgorithmRunner(PopulationAccessor<T> populationAccessor, FitnessFunction<T> fitnessFunction,
-                                        CrossoverFunction<T> crossoverFunction, Mutation<T> mutation) {
+                                        Double epsilon, CrossoverFunction<T> crossoverFunction, Mutation<T> mutation) {
         this.populationAccessor = populationAccessor;
         this.fitnessFunction = fitnessFunction;
+        this.epsilon = epsilon;
         this.crossoverFunction = crossoverFunction;
         Mutation<T> defaultMutation = new Mutation<>(a -> a, 0d);
         this.mutation = mutation != null ? mutation : defaultMutation;
@@ -43,12 +45,12 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
     public GenerationResult<T> generate() {
         Population<T> population = populationAccessor.getPopulation();
         int iteration = 0;
-        int epsilon = -1; //FIXME: provide this value from somewhere
+        computeFitness(population, fitnessFunction);
         do {
-            computeFitness(population, fitnessFunction);
             Population<T> selectedForReproduction = selection(population, fitnessFunction);
             Population<T> newPopulation = reproduce(selectedForReproduction, crossoverFunction);
             mutate(newPopulation, mutation);
+            computeFitness(newPopulation, fitnessFunction);
             population = newPopulation;
             iteration++;
         } while (!solutionFound(population, fitnessFunction, epsilon));
@@ -73,7 +75,7 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
         new SimpleMutationRunner<>(mutation).mutate(newPopulation);
     }
 
-    private boolean solutionFound(Population<T> population, FitnessFunction<T> fitnessFunction, int epsilon) {
+    private boolean solutionFound(Population<T> population, FitnessFunction<T> fitnessFunction, Double epsilon) {
         return new SimpleSolutionSeeker(fitnessFunction.getTarget(), epsilon).isSolutionFound(population);
     }
 }

@@ -20,6 +20,7 @@ public class ConfigurationBuilder<T> {
     private CrossoverFunction<T> crossoverFunction;
     private MutationFunction<T> mutationFunction;
     private Double mutationProbability;
+    private Double epsilon;
 
     public ConfigurationBuilder<T> withPopulationAccessor(PopulationAccessor<T> populationAccessor) {
         this.populationAccessor = populationAccessor;
@@ -33,6 +34,11 @@ public class ConfigurationBuilder<T> {
 
     public ConfigurationBuilder<T> targeting(Double fitnessFunctionTarger) {
         this.fitnessFunctionTarget = fitnessFunctionTarger;
+        return this;
+    }
+
+    public ConfigurationBuilder<T> withEpsilon(Double epsilon) {
+        this.epsilon = epsilon;
         return this;
     }
 
@@ -60,6 +66,7 @@ public class ConfigurationBuilder<T> {
         return new SimpleGeneticAlgorithmRunner<>(
                 populationAccessor,
                 fitnessFunctionObject,
+                epsilon,
                 crossoverFunction,
                 mutation);
     }
