@@ -26,13 +26,14 @@ public class SimpleReproductionRunner<T> implements ReproductionRunner<T> {
     @Override
     public Population<T> reproduce(Population<T> selectedForReproduction) {
         Collection<Individual<T>> individuals = selectedForReproduction.getIndividuals();
-        List<T> children = getParentsPairs(individuals)
+        Stream<T> parents = individuals.stream().map(Individual::getValue);
+        Stream<T> children = getParentsPairs(individuals)
                 .flatMap(pair -> Stream.of(
                         crossoverFunction.apply(pair.parent1.getValue(), pair.parent2.getValue()),
                         crossoverFunction.apply(pair.parent2.getValue(), pair.parent1.getValue())
-                ))
-                .collect(toList());
-        return new Population<>(children);
+                ));
+        List<T> newPopulationIndividuals = Stream.concat(parents, children).collect(toList());
+        return new Population<>(newPopulationIndividuals);
     }
 
     private Stream<ParentsPair> getParentsPairs(Collection<Individual<T>> parents) {

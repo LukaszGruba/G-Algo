@@ -34,10 +34,27 @@ public class SimpleReproductionRunnerTest {
         when(crossoverFunction.apply(anyInt(), anyInt())).thenReturn(1);
 
         //when
-        Population<Integer> children = new SimpleReproductionRunner<>(crossoverFunction).reproduce(parents);
+        Population<Integer> newPopulation = new SimpleReproductionRunner<>(crossoverFunction).reproduce(parents);
 
         //then
-        assertEquals(2, children.size());
+        List<Integer> integers = newPopulation.getIndividuals().stream().map(Individual::getValue).collect(toList());
+        assertEquals(4, newPopulation.size());
+        assertThat(integers, hasItem(1));
+        assertThat(integers, hasItem(100));
+        assertThat(integers, hasItem(1000));
+    }
+    
+    @Test
+    public void newPopulationShouldBeTwiceAsBigAsParents() {
+        //given
+        Population<Integer> parents = generatePopulation(() -> 1, 100);
+        CrossoverFunction<Integer> crossoverFunction = (a, b) -> 1;
+
+        //when
+        Population<Integer> newPopulation = new SimpleReproductionRunner<>(crossoverFunction).reproduce(parents);
+
+        //then
+        assertEquals(200, newPopulation.size());
     }
 
     @Test()
@@ -84,10 +101,22 @@ public class SimpleReproductionRunnerTest {
         CrossoverFunction<Integer> crossoverFunction = (a, b) -> (3*a + b) / 2;
 
         //when
-        Population<Integer> children = new SimpleReproductionRunner<>(crossoverFunction).reproduce(initialPopulation);
+        Population<Integer> newPopulation = new SimpleReproductionRunner<>(crossoverFunction).reproduce(initialPopulation);
 
         //then
-        List<Integer> childrenList = children.getIndividuals().stream().map(Individual::getValue).collect(toList());
+        List<Integer> childrenList = newPopulation.getIndividuals().stream().map(Individual::getValue).collect(toList());
+        //parents
+        assertThat(childrenList, hasItem(1));
+        assertThat(childrenList, hasItem(2));
+        assertThat(childrenList, hasItem(3));
+        assertThat(childrenList, hasItem(4));
+        assertThat(childrenList, hasItem(5));
+        assertThat(childrenList, hasItem(6));
+        assertThat(childrenList, hasItem(7));
+        assertThat(childrenList, hasItem(8));
+        assertThat(childrenList, hasItem(9));
+        assertThat(childrenList, hasItem(10));
+        //children
         assertThat(childrenList, hasItem(2));
         assertThat(childrenList, hasItem(3));
         assertThat(childrenList, hasItem(6));
@@ -124,6 +153,14 @@ public class SimpleReproductionRunnerTest {
 
         //then
         List<ComplexObj> childrenList = children.getIndividuals().stream().map(Individual::getValue).collect(toList());
+        //parents
+        assertThat(childrenList, hasItem(new ComplexObj(100, "aabbcc", 600.0, asList(1, 2, 3, 4))));
+        assertThat(childrenList, hasItem(new ComplexObj(200, "ccbbaa", 500.0, asList(2, 3, 4, 5))));
+        assertThat(childrenList, hasItem(new ComplexObj(-300, "abba", 12.75, asList(1, 2, 3, 4))));
+        assertThat(childrenList, hasItem(new ComplexObj(4000, "led zeppelin", 89.1, asList(12, 11, 10, 9))));
+        assertThat(childrenList, hasItem(new ComplexObj(100000, "", 200.0, asList(89, 0))));
+        assertThat(childrenList, hasItem(new ComplexObj(1000, "To be or not to be?", -3000.0, Collections.emptyList())));
+        //children
         assertThat(childrenList, hasItem(new ComplexObj(150, "aabbcc ccbbaa", 100.0, asList(1, 2, 3, 4, 2, 3, 4, 5))));
         assertThat(childrenList, hasItem(new ComplexObj(150, "ccbbaa aabbcc", -100.0, asList(2, 3, 4, 5, 1, 2, 3, 4))));
         assertThat(childrenList, hasItem(new ComplexObj(1850, "abba led zeppelin", -76.35, asList(1, 2, 3, 4, 12, 11, 10, 9))));
