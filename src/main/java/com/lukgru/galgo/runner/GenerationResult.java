@@ -9,17 +9,22 @@ import com.lukgru.galgo.population.Population;
 public class GenerationResult<T> {
     private final Population<T> finalPopulation;
     private final int iterations;
+    private final double target;
 
-    public GenerationResult(Population<T> finalPopulation, int iterations) {
+    public GenerationResult(Population<T> finalPopulation, int iterations, double target) {
         this.finalPopulation = finalPopulation;
         this.iterations = iterations;
+        this.target = target;
     }
 
-    public T getBest() {
-        Individual<T> bestIndividual = finalPopulation.getIndividuals().stream()
-                .max((indA, indB) -> indA.getFitnessScore().compareTo(indB.getFitnessScore()))
+    public Individual<T> getBest() {
+        return finalPopulation.getIndividuals().stream()
+                .min((indA, indB) -> {
+                    Double fitA = Math.abs(target - indA.getFitnessScore());
+                    Double fitB = Math.abs(target - indB.getFitnessScore());
+                    return fitA.compareTo(fitB);
+                })
                 .orElse(null);
-        return bestIndividual.getValue();
     }
 
     public int getIterations() {

@@ -16,23 +16,36 @@ import static org.mockito.Mockito.when;
  */
 public class GenerationResultTest {
 
-    private static final double BEST_SCORE = Integer.MAX_VALUE;
-    private static final double WORST_SCORE = 0;
-
-    
     @Test
     public void shouldReturnBestWithHigherFitnessScore() {
         //given
         Collection<Individual<Integer>> individuals = mockIndividuals();
-        Population finalPopulation = mock(Population.class);
+        Population<Integer> finalPopulation = mock(Population.class);
         when(finalPopulation.getIndividuals()).thenReturn(individuals);
+        double target = Double.MAX_VALUE;
 
         //when
-        GenerationResult<Integer> result = new GenerationResult<>(finalPopulation, 100);
-        int best = result.getBest();
+        GenerationResult<Integer> result = new GenerationResult<>(finalPopulation, 100, target);
+        int best = result.getBest().getValue();
 
         //then
         assertEquals(4, best);
+    }
+
+    @Test
+    public void shouldReturnClosestToTarget() {
+        //given
+        Collection<Individual<Integer>> individuals = mockIndividuals();
+        Population<Integer> finalPopulation = mock(Population.class);
+        when(finalPopulation.getIndividuals()).thenReturn(individuals);
+        double target = 0.0;
+
+        //when
+        GenerationResult<Integer> result = new GenerationResult<>(finalPopulation, 100, target);
+        int best = result.getBest().getValue();
+
+        //then
+        assertEquals(6, best);
     }
 
     private Collection<Individual<Integer>> mockIndividuals() {
@@ -40,9 +53,9 @@ public class GenerationResultTest {
                 mockIndividual(1, 15.0),
                 mockIndividual(2, 12.0),
                 mockIndividual(3, 3.0),
-                mockIndividual(4, BEST_SCORE),
+                mockIndividual(4, Double.MAX_VALUE),
                 mockIndividual(5, 7182.0),
-                mockIndividual(6, WORST_SCORE),
+                mockIndividual(6, 0.0),
                 mockIndividual(7, 23.0),
                 mockIndividual(8, 19999.0)
         );

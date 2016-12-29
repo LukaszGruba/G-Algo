@@ -16,6 +16,9 @@ import java.util.Objects;
 /**
  * Created by Łukasz on 2016-11-28.
  */
+//TODO: provide mechanism for statistics
+//TODO: add logging
+//TODO: enable providing timeout
 public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T> {
 
     private PopulationAccessor<T> populationAccessor;
@@ -54,7 +57,7 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
             population = newPopulation;
             iteration++;
         } while (!solutionFound(population, fitnessFunction, epsilon));
-        return new GenerationResult<>(population, iteration);
+        return new GenerationResult<>(population, iteration, fitnessFunction.getTarget());
     }
 
     //TODO: make below runners dependencies
