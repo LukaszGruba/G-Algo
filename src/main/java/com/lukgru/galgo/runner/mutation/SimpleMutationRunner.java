@@ -7,7 +7,6 @@ import com.lukgru.galgo.population.Population;
 /**
  * Created by Lukasz on 12.12.2016.
  */
-@SuppressWarnings("PMD")
 public class SimpleMutationRunner<T> implements MutationRunner<T> {
 
     private Mutation<T> mutation;
