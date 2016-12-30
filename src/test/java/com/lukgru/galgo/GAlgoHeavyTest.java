@@ -5,12 +5,17 @@ import com.lukgru.galgo.runner.GenerationResult;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.function.DoubleUnaryOperator;
+import java.util.function.Function;
+
 import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Lukasz on 04.12.2016.
  */
 //TODO: run this test in some special maven goal
+//TODO: create more comparisons with brute force or random
+//TODO: add more challenging tests (e.g. with non zero target, single solution with many variables etc.)
 public class GAlgoHeavyTest {
 
     private static final long TIMEOUT = 60 * 1000L; //one minute
@@ -91,22 +96,24 @@ public class GAlgoHeavyTest {
     @Test(timeout = TIMEOUT)
     public void solveSimpleTwoVariableEquationWithZeroTarget() {
         //given
-        MutationFunction<VariablesPair> mutationFunction = a -> new VariablesPair(
-                a.x * (0.5d + Math.random()),
-                a.y * (0.5d + Math.random())
-        );
         Double target = 0.0;
         Double epsilon = 0.0001;
 
         //when
         GenerationResult<VariablesPair> generationResult = GAlgo
-                .fromGeneratedPopulation(() -> new VariablesPair(Math.random() * 200 - 100, Math.random() * 200 - 100))
+                .fromGeneratedPopulation(() -> new VariablesPair(
+                        Math.random() * 200 - 100,
+                        Math.random() * 200 - 100
+                ))
                 .withSize(100)
                 .withFitnessFunction(v -> (v.x - 90.0) * (v.y + 20.0))
                 .targeting(target)
                 .withEpsilon(epsilon)
                 .withCrossover((a, b) -> new VariablesPair(a.x + (b.x / 2), a.y + (b.y / 2)))
-                .withMutationFunction(mutationFunction)
+                .withMutationFunction(a -> new VariablesPair(
+                        a.x * (0.5d + Math.random()),
+                        a.y * (0.5d + Math.random())
+                ))
                 .withMutationProbability(0.1)
                 .runner().generate();
 
@@ -153,8 +160,6 @@ public class GAlgoHeavyTest {
         System.out.println("Solution = " + solution + ", fitness = " + fitness + ", iterations = " + generationResult.getIterations());
         assertTrue(meetsCriteria(fitness, target, epsilon));
     }
-
-    //TODO: add more challenging tests (e.g. with non zero target, single solution with many variables etc.)
 
     private boolean meetsCriteria(Double fitness, Double target, Double epsilon) {
         return Math.abs(fitness - target) < epsilon;
