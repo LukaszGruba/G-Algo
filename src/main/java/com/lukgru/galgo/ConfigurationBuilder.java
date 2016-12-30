@@ -32,8 +32,8 @@ public class ConfigurationBuilder<T> {
         return this;
     }
 
-    public ConfigurationBuilder<T> targeting(Double fitnessFunctionTarger) {
-        this.fitnessFunctionTarget = fitnessFunctionTarger;
+    public ConfigurationBuilder<T> targeting(Double fitnessFunctionTarget) {
+        this.fitnessFunctionTarget = fitnessFunctionTarget;
         return this;
     }
 
