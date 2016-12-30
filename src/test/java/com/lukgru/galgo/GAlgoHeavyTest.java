@@ -1,12 +1,7 @@
 package com.lukgru.galgo;
 
-import com.lukgru.galgo.mutation.MutationFunction;
 import com.lukgru.galgo.runner.GenerationResult;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.function.DoubleUnaryOperator;
-import java.util.function.Function;
 
 import static org.junit.Assert.assertTrue;
 
