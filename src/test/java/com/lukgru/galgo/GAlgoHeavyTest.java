@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static java.lang.Math.pow;
+import static java.lang.Math.random;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -15,9 +16,9 @@ import static org.junit.Assert.assertTrue;
 //TODO: add more challenging tests (e.g. with non zero target, single solution with many variables etc.)
 public class GAlgoHeavyTest {
 
-    private static final long TIMEOUT = 60 * 1000L; //one minute
+    private static final long MINUTE = 60 * 1000L;
     
-    @Test(timeout = TIMEOUT)
+    @Test(timeout = MINUTE)
     public void solveSimpleSingleVariableEquationWithZeroTarget() {
         //given
         Double target = 0.0;
@@ -25,13 +26,13 @@ public class GAlgoHeavyTest {
 
         //when
         GenerationResult<Double> generationResult = GAlgo
-                .fromGeneratedPopulation(() -> Math.random() * 200 - 100)
+                .fromGeneratedPopulation(() -> random() * 200 - 100)
                 .withSize(50)
                 .withFitnessFunction(x -> (14.0 * x) - 28)
                 .targeting(target)
                 .withEpsilon(epsilon)
-                .withCrossover((a, b) -> a + (b / 2))
-                .withMutationFunction(a -> -a).withMutationProbability(0.1)
+                .withCrossover((a, b) -> a + (b / 10))
+                .withMutationFunction(a -> a - 0.5 + random()).withMutationProbability(0.1)
                 .runner().generate();
 
         //then
@@ -42,7 +43,7 @@ public class GAlgoHeavyTest {
         assertTrue(meetsCriteria(fitness, target, epsilon));
     }
 
-    @Test(timeout = TIMEOUT)
+    @Test(timeout = MINUTE)
     public void solveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget() {
         //given
         Double target = 0.0;
@@ -50,13 +51,13 @@ public class GAlgoHeavyTest {
 
         //when
         GenerationResult<Double> generationResult = GAlgo
-                .fromGeneratedPopulation(() -> Math.random() * 200 - 100)
+                .fromGeneratedPopulation(() -> random() * 200 - 100)
                 .withSize(100)
                 .withFitnessFunction(x -> (x - 1) * (x - 1))
                 .targeting(target)
                 .withEpsilon(epsilon)
-                .withCrossover((a, b) -> a + (b / 2))
-                .withMutationFunction(a -> -a).withMutationProbability(0.1)
+                .withCrossover((a, b) -> a + (b / 10))
+                .withMutationFunction(a -> a - 0.5 + random()).withMutationProbability(0.1)
                 .runner().generate();
 
         //then
@@ -66,7 +67,7 @@ public class GAlgoHeavyTest {
         assertTrue(meetsCriteria(fitness, target, epsilon));
     }
 
-    @Test(timeout = TIMEOUT)
+    @Test(timeout = MINUTE)
     public void solveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget() {
         //given
         Double target = 0.0;
@@ -74,13 +75,13 @@ public class GAlgoHeavyTest {
 
         //when
         GenerationResult<Double> generationResult = GAlgo
-                .fromGeneratedPopulation(() -> Math.random() * 200 - 100)
+                .fromGeneratedPopulation(() -> random() * 200 - 100)
                 .withSize(50)
                 .withFitnessFunction(x -> (x - 90.0) * (x + 20.0))
                 .targeting(target)
                 .withEpsilon(epsilon)
-                .withCrossover((a, b) -> a + (b / 2))
-                .withMutationFunction(a -> -a).withMutationProbability(0.1)
+                .withCrossover((a, b) -> a + (b / 10))
+                .withMutationFunction(a -> a - 0.5 + random()).withMutationProbability(0.1)
                 .runner().generate();
 
         //then
@@ -90,7 +91,7 @@ public class GAlgoHeavyTest {
         assertTrue(meetsCriteria(fitness, target, epsilon));
     }
 
-    @Test(timeout = TIMEOUT)
+    @Test(timeout = MINUTE)
     public void solveSimpleTwoVariableEquationWithZeroTarget() {
         //given
         Double target = 0.0;
@@ -99,19 +100,19 @@ public class GAlgoHeavyTest {
         //when
         GenerationResult<VariablesTuple> generationResult = GAlgo
                 .fromGeneratedPopulation(() -> new VariablesTuple(
-                        Math.random() * 200 - 100,
-                        Math.random() * 200 - 100
+                        random() * 200 - 100,
+                        random() * 200 - 100
                 ))
-                .withSize(100)
+                .withSize(1000)
                 .withFitnessFunction(a -> (a.v[0] - 90.0) * (a.v[1] + 20.0))
                 .targeting(target)
                 .withEpsilon(epsilon)
                 .withCrossover((a, b) -> new VariablesTuple(
-                        a.v[0] + (b.v[0] / 2),
-                        a.v[1] + (b.v[1] / 2)))
+                        a.v[0] + (b.v[0] / 10),
+                        a.v[1] + (b.v[1] / 10)))
                 .withMutationFunction(a -> new VariablesTuple(
-                        a.v[0] * (0.5d + Math.random()),
-                        a.v[1] * (0.5d + Math.random())
+                        a.v[0] - 0.5d + random(),
+                        a.v[1] - 0.5d + random()
                 ))
                 .withMutationProbability(0.1)
                 .runner().generate();
@@ -123,7 +124,7 @@ public class GAlgoHeavyTest {
         assertTrue(meetsCriteria(fitness, target, epsilon));
     }
 
-    @Test(timeout = TIMEOUT)
+    @Test(timeout = MINUTE)
     public void solveSimpleThreeVariableEquationWithZeroTarget() {
         //given
         Double target = 0.0;
@@ -132,23 +133,23 @@ public class GAlgoHeavyTest {
         //when
         GenerationResult<VariablesTuple> generationResult = GAlgo
                 .fromGeneratedPopulation(() -> new VariablesTuple(
-                        Math.random() * 200 - 100,
-                        Math.random() * 200 - 100,
-                        Math.random() * 200 - 100
+                        random() * 200 - 100,
+                        random() * 200 - 100,
+                        random() * 200 - 100
                 ))
                 .withSize(1000)
                 .withFitnessFunction(a -> (a.v[0] - 90.0) * (a.v[1] + 20.0) * (a.v[2] + 18.0))
                 .targeting(target)
                 .withEpsilon(epsilon)
                 .withCrossover((a, b) -> new VariablesTuple(
-                        (a.v[0]) + (b.v[0] / 2),
-                        (a.v[1]) + (b.v[1] / 2),
-                        (a.v[2]) + (b.v[2] / 2)
+                        (a.v[0]) + (b.v[0] / 10),
+                        (a.v[1]) + (b.v[1] / 10),
+                        (a.v[2]) + (b.v[2] / 10)
                 ))
                 .withMutationFunction(a -> new VariablesTuple(
-                        a.v[0] * (0.5d + Math.random()),
-                        a.v[1] * (0.5d + Math.random()),
-                        a.v[2] * (0.5d + Math.random())
+                        a.v[0] - 0.5d + random(),
+                        a.v[1] - 0.5d + random(),
+                        a.v[2] - 0.5d + random()
                 ))
                 .withMutationProbability(0.1)
                 .runner().generate();
@@ -160,39 +161,39 @@ public class GAlgoHeavyTest {
         assertTrue(meetsCriteria(fitness, target, epsilon));
     }
 
-    @Test(timeout = TIMEOUT)
+    @Test(timeout = MINUTE)
     public void solveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget() {
         //given
         Double target = 0.0;
-        Double epsilon = 0.0001;
+        Double epsilon = 1.0;
 
         //when
         GenerationResult<VariablesTuple> generationResult = GAlgo
                 .fromGeneratedPopulation(() -> new VariablesTuple(
-                        Math.random() * 200 - 100,
-                        Math.random() * 200 - 100,
-                        Math.random() * 200 - 100,
-                        Math.random() * 200 - 100,
-                        Math.random() * 200 - 100
+                        random() * 200 - 100,
+                        random() * 200 - 100,
+                        random() * 200 - 100,
+                        random() * 200 - 100,
+                        random() * 200 - 100
                 ))
-                .withSize(1000)
+                .withSize(100)
                 .withFitnessFunction(a ->
                         pow(a.v[0] - 90.0, 2) + pow(a.v[1] + 20.0, 2) + pow(a.v[2] + 18.0, 2) + pow(a.v[3] - 55, 2) + pow(a.v[4] - 78, 2))
                 .targeting(target)
                 .withEpsilon(epsilon)
                 .withCrossover((a, b) -> new VariablesTuple(
-                        (a.v[0]) + (b.v[0] / 2),
-                        (a.v[1]) + (b.v[1] / 2),
-                        (a.v[2]) + (b.v[2] / 2),
-                        (a.v[3]) + (b.v[3] / 2),
-                        (a.v[4]) + (b.v[4] / 2)
+                        (a.v[0]) + (b.v[0] / 10),
+                        (a.v[1]) + (b.v[1] / 10),
+                        (a.v[2]) + (b.v[2] / 10),
+                        (a.v[3]) + (b.v[3] / 10),
+                        (a.v[4]) + (b.v[4] / 10)
                 ))
                 .withMutationFunction(a -> new VariablesTuple(
-                        a.v[0] * (0.5d + Math.random()),
-                        a.v[1] * (0.5d + Math.random()),
-                        a.v[2] * (0.5d + Math.random()),
-                        a.v[3] * (0.5d + Math.random()),
-                        a.v[4] * (0.5d + Math.random())
+                        a.v[0] - 0.5d + random(),
+                        a.v[1] - 0.5d + random(),
+                        a.v[2] - 0.5d + random(),
+                        a.v[3] - 0.5d + random(),
+                        a.v[4] - 0.5d + random()
                 ))
                 .withMutationProbability(0.1)
                 .runner().generate();
