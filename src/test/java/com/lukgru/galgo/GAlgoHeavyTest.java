@@ -1,16 +1,18 @@
 package com.lukgru.galgo;
 
-import com.lukgru.galgo.mutation.MutationFunction;
 import com.lukgru.galgo.runner.GenerationResult;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.Arrays;
+
+import static java.lang.Math.pow;
 import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Lukasz on 04.12.2016.
  */
-//TODO: run this test in some special maven goal
+//TODO: create more comparisons with brute force or random
+//TODO: add more challenging tests (e.g. with non zero target, single solution with many variables etc.)
 public class GAlgoHeavyTest {
 
     private static final long TIMEOUT = 60 * 1000L; //one minute
@@ -91,27 +93,31 @@ public class GAlgoHeavyTest {
     @Test(timeout = TIMEOUT)
     public void solveSimpleTwoVariableEquationWithZeroTarget() {
         //given
-        MutationFunction<VariablesPair> mutationFunction = a -> new VariablesPair(
-                a.x * (0.5d + Math.random()),
-                a.y * (0.5d + Math.random())
-        );
         Double target = 0.0;
         Double epsilon = 0.0001;
 
         //when
-        GenerationResult<VariablesPair> generationResult = GAlgo
-                .fromGeneratedPopulation(() -> new VariablesPair(Math.random() * 200 - 100, Math.random() * 200 - 100))
+        GenerationResult<VariablesTuple> generationResult = GAlgo
+                .fromGeneratedPopulation(() -> new VariablesTuple(
+                        Math.random() * 200 - 100,
+                        Math.random() * 200 - 100
+                ))
                 .withSize(100)
-                .withFitnessFunction(v -> (v.x - 90.0) * (v.y + 20.0))
+                .withFitnessFunction(a -> (a.v[0] - 90.0) * (a.v[1] + 20.0))
                 .targeting(target)
                 .withEpsilon(epsilon)
-                .withCrossover((a, b) -> new VariablesPair(a.x + (b.x / 2), a.y + (b.y / 2)))
-                .withMutationFunction(mutationFunction)
+                .withCrossover((a, b) -> new VariablesTuple(
+                        a.v[0] + (b.v[0] / 2),
+                        a.v[1] + (b.v[1] / 2)))
+                .withMutationFunction(a -> new VariablesTuple(
+                        a.v[0] * (0.5d + Math.random()),
+                        a.v[1] * (0.5d + Math.random())
+                ))
                 .withMutationProbability(0.1)
                 .runner().generate();
 
         //then
-        VariablesPair solution = generationResult.getBest().getValue();
+        VariablesTuple solution = generationResult.getBest().getValue();
         Double fitness = generationResult.getBest().getFitnessScore();
         System.out.println("Solution = " + solution + ", fitness = " + fitness + ", iterations = " + generationResult.getIterations());
         assertTrue(meetsCriteria(fitness, target, epsilon));
@@ -124,71 +130,96 @@ public class GAlgoHeavyTest {
         Double epsilon = 0.0001;
 
         //when
-        GenerationResult<VariablesTriplet> generationResult = GAlgo
-                .fromGeneratedPopulation(() -> new VariablesTriplet(
+        GenerationResult<VariablesTuple> generationResult = GAlgo
+                .fromGeneratedPopulation(() -> new VariablesTuple(
                         Math.random() * 200 - 100,
                         Math.random() * 200 - 100,
                         Math.random() * 200 - 100
                 ))
                 .withSize(1000)
-                .withFitnessFunction(v -> (v.x - 90.0) * (v.y + 20.0) * (v.z + 18.0))
+                .withFitnessFunction(a -> (a.v[0] - 90.0) * (a.v[1] + 20.0) * (a.v[2] + 18.0))
                 .targeting(target)
                 .withEpsilon(epsilon)
-                .withCrossover((a, b) -> new VariablesTriplet(
-                        (a.x) + (b.x / 2),
-                        (a.y) + (b.y / 2),
-                        (a.z) + (b.z / 2)
+                .withCrossover((a, b) -> new VariablesTuple(
+                        (a.v[0]) + (b.v[0] / 2),
+                        (a.v[1]) + (b.v[1] / 2),
+                        (a.v[2]) + (b.v[2] / 2)
                 ))
-                .withMutationFunction(a -> new VariablesTriplet(
-                        a.x * (0.5d + Math.random()),
-                        a.y * (0.5d + Math.random()),
-                        a.z * (0.5d + Math.random())
+                .withMutationFunction(a -> new VariablesTuple(
+                        a.v[0] * (0.5d + Math.random()),
+                        a.v[1] * (0.5d + Math.random()),
+                        a.v[2] * (0.5d + Math.random())
                 ))
                 .withMutationProbability(0.1)
                 .runner().generate();
 
         //then
-        VariablesTriplet solution = generationResult.getBest().getValue();
+        VariablesTuple solution = generationResult.getBest().getValue();
         Double fitness = generationResult.getBest().getFitnessScore();
         System.out.println("Solution = " + solution + ", fitness = " + fitness + ", iterations = " + generationResult.getIterations());
         assertTrue(meetsCriteria(fitness, target, epsilon));
     }
 
-    //TODO: add more challenging tests (e.g. with non zero target, single solution with many variables etc.)
+    @Test(timeout = TIMEOUT)
+    public void solveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget() {
+        //given
+        Double target = 0.0;
+        Double epsilon = 0.0001;
+
+        //when
+        GenerationResult<VariablesTuple> generationResult = GAlgo
+                .fromGeneratedPopulation(() -> new VariablesTuple(
+                        Math.random() * 200 - 100,
+                        Math.random() * 200 - 100,
+                        Math.random() * 200 - 100,
+                        Math.random() * 200 - 100,
+                        Math.random() * 200 - 100
+                ))
+                .withSize(1000)
+                .withFitnessFunction(a ->
+                        pow(a.v[0] - 90.0, 2) + pow(a.v[1] + 20.0, 2) + pow(a.v[2] + 18.0, 2) + pow(a.v[3] - 55, 2) + pow(a.v[4] - 78, 2))
+                .targeting(target)
+                .withEpsilon(epsilon)
+                .withCrossover((a, b) -> new VariablesTuple(
+                        (a.v[0]) + (b.v[0] / 2),
+                        (a.v[1]) + (b.v[1] / 2),
+                        (a.v[2]) + (b.v[2] / 2),
+                        (a.v[3]) + (b.v[3] / 2),
+                        (a.v[4]) + (b.v[4] / 2)
+                ))
+                .withMutationFunction(a -> new VariablesTuple(
+                        a.v[0] * (0.5d + Math.random()),
+                        a.v[1] * (0.5d + Math.random()),
+                        a.v[2] * (0.5d + Math.random()),
+                        a.v[3] * (0.5d + Math.random()),
+                        a.v[4] * (0.5d + Math.random())
+                ))
+                .withMutationProbability(0.1)
+                .runner().generate();
+
+        //then
+        VariablesTuple solution = generationResult.getBest().getValue();
+        Double fitness = generationResult.getBest().getFitnessScore();
+        System.out.println("Solution = " + solution + ", fitness = " + fitness + ", iterations = " + generationResult.getIterations());
+        assertTrue(meetsCriteria(fitness, target, epsilon));
+    }
 
     private boolean meetsCriteria(Double fitness, Double target, Double epsilon) {
         return Math.abs(fitness - target) < epsilon;
     }
 
-    private class VariablesPair {
-        private double x;
-        private double y;
+    private class VariablesTuple {
+        private double[] v;
 
-        public VariablesPair(double x, double y) {
-            this.x = x;
-            this.y = y;
+        public VariablesTuple(double... v) {
+            this.v = v;
         }
 
         @Override
         public String toString() {
-            return "[x = " + x + ", y = " + y + "]";
-        }
-    }
-
-    private class VariablesTriplet {
-        private double x;
-        private double y;
-        private double z;
-
-        public VariablesTriplet(double x, double y, double z) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-
-        @Override
-        public String toString() {
-            return "[x = " + x + ", y = " + y + ", z = " + z + "]";
+            return "VariablesTuple{" +
+                    "values=" + Arrays.toString(v) +
+                    '}';
         }
     }
 }
