@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by Lukasz on 04.12.2016.
  */
+//TODO: divide to separate classes and compare with random or brute force
 //TODO: create more comparisons with brute force or random
 //TODO: add more challenging tests (e.g. with non zero target, single solution with many variables etc.)
 public class GAlgoHeavyTest {
