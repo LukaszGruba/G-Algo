@@ -21,6 +21,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>**/*HeavyTest.java</exclude>
+                                <exclude>**/*ComparisonTest.java</exclude>
                             </excludes>
                         </configuration>
                     </plugin>
@@ -36,6 +37,21 @@
                         <configuration>
                             <includes>
                                 <include>**/*HeavyTest.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>comparison-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*ComparisonTest.java</include>
                             </includes>
                         </configuration>
                     </plugin>
