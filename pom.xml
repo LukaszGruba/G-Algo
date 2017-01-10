@@ -21,6 +21,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>**/*HeavyTest.java</exclude>
+                                <exclude>**/*ComparisonTest.java</exclude>
                             </excludes>
                         </configuration>
                     </plugin>
