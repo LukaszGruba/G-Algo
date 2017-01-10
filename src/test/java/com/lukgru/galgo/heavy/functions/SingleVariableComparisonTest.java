@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.stream.Stream;
 
+import static com.lukgru.galgo.heavy.HeavyTestUtils.MINUTE;
 import static com.lukgru.galgo.heavy.HeavyTestUtils.compareExecution;
 import static com.lukgru.galgo.heavy.HeavyTestUtils.meetsCriteria;
 import static java.lang.Math.random;
@@ -16,7 +17,7 @@ public class SingleVariableComparisonTest {
 
     private SingleVariableHeavyTest tests = new SingleVariableHeavyTest();
 
-    @Test
+    @Test(timeout = 2 * MINUTE)
     public void singleVariableEquationWithZeroTargetComparison() {
         //when
         long timeDiff = compareExecution(tests::solveSimpleSingleVariableEquationWithZeroTarget,
@@ -37,7 +38,7 @@ public class SingleVariableComparisonTest {
                 .findFirst();
     }
 
-    @Test
+    @Test(timeout = 2 * MINUTE)
     public void singleVariableQuadraticEquationWithOneSolutionAndZeroTargetComparison() {
         //when
         long timeDiff = compareExecution(tests::solveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget,
@@ -58,7 +59,7 @@ public class SingleVariableComparisonTest {
                 .findFirst();
     }
 
-    @Test
+    @Test(timeout = 2 * MINUTE)
     public void singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTargetComparison() {
         //when
         long timeDiff = compareExecution(tests::solveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget,
