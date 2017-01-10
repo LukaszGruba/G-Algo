@@ -2,10 +2,7 @@ package com.lukgru.galgo.heavy.functions;
 
 import com.lukgru.galgo.GAlgo;
 import com.lukgru.galgo.runner.GenerationResult;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.stream.Stream;
 
 import static com.lukgru.galgo.heavy.HeavyTestUtils.MINUTE;
 import static com.lukgru.galgo.heavy.HeavyTestUtils.meetsCriteria;
@@ -42,20 +39,6 @@ public class SingleVariableHeavyTest {
         assertTrue(meetsCriteria(fitness, target, epsilon));
     }
 
-    @Ignore
-    @Test(timeout = MINUTE)
-    public void randomSolveSimpleSingleVariableEquationWithZeroTarget() {
-        //given
-        Double target = 0.0;
-        Double epsilon = 0.0001;
-
-        //then
-        Stream.generate(() -> random() * 200 - 100)
-                .map(x -> (14.0 * x) - 28)
-                .filter(x -> meetsCriteria(x, target, epsilon))
-                .findFirst();
-    }
-
     @Test(timeout = MINUTE)
     public void solveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget() {
         //given
@@ -80,20 +63,6 @@ public class SingleVariableHeavyTest {
         assertTrue(meetsCriteria(fitness, target, epsilon));
     }
 
-    @Ignore
-    @Test(timeout = MINUTE)
-    public void randomSolveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget() {
-        //given
-        Double target = 0.0;
-        Double epsilon = 0.0001;
-
-        //then
-        Stream.generate(() -> random() * 200 - 100)
-                .map(x -> (x - 1) * (x - 1))
-                .filter(x -> meetsCriteria(x, target, epsilon))
-                .findFirst();
-    }
-
     @Test(timeout = MINUTE)
     public void solveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget() {
         //given
@@ -116,20 +85,5 @@ public class SingleVariableHeavyTest {
         Double fitness = generationResult.getBest().getFitnessScore();
         System.out.println("Solution = " + solution + ", fitness = " + fitness + ", iterations = " + generationResult.getIterations());
         assertTrue(meetsCriteria(fitness, target, epsilon));
-    }
-
-    @Ignore
-    @Test(timeout = MINUTE)
-    public void randomSolveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget() {
-        //given
-        Double target = 0.0;
-        Double epsilon = 0.0001;
-
-        //then
-        Stream.generate(() -> random() * 200 - 100)
-                .map(x -> (x - 90.0) * (x + 20.0))
-                .filter(x -> meetsCriteria(x, target, epsilon))
-                .findFirst();
-
     }
 }
