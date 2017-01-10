@@ -2,10 +2,7 @@ package com.lukgru.galgo.heavy.functions;
 
 import com.lukgru.galgo.GAlgo;
 import com.lukgru.galgo.runner.GenerationResult;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.stream.Stream;
 
 import static com.lukgru.galgo.heavy.HeavyTestUtils.MINUTE;
 import static com.lukgru.galgo.heavy.HeavyTestUtils.meetsCriteria;
@@ -48,22 +45,5 @@ public class TwoVariablesHeavyTest {
         Double fitness = generationResult.getBest().getFitnessScore();
         System.out.println("Solution = " + solution + ", fitness = " + fitness + ", iterations = " + generationResult.getIterations());
         assertTrue(meetsCriteria(fitness, target, epsilon));
-    }
-
-    @Ignore
-    @Test(timeout = MINUTE)
-    public void randomSolveSimpleTwoVariableEquationWithZeroTarget() {
-        //given
-        Double target = 0.0;
-        Double epsilon = 0.0001;
-
-        //then
-        Stream.generate(() -> new VariablesTuple(
-                    random() * 200 - 100,
-                    random() * 200 - 100
-                ))
-                .map(a -> (a.v[0] - 90.0) * (a.v[1] + 20.0))
-                .filter(a -> meetsCriteria(a, target, epsilon))
-                .findFirst();
     }
 }
