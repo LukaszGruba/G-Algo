@@ -20,7 +20,8 @@ public class ThreeVariablesComparisonTest {
         //given
         boolean isFaster = isFaster(
                 tests::solveSimpleThreeVariableEquationWithZeroTarget,
-                this::randomSolveSimpleThreeVariableEquationWithZeroTarget);
+                this::randomSolveSimpleThreeVariableEquationWithZeroTarget,
+                this::bruteForceSolveSimpleThreeVariableEquationWithZeroTarget);
 
         //then
         assertTrue(isFaster);
@@ -40,5 +41,21 @@ public class ThreeVariablesComparisonTest {
                 .map(a -> (a.v[0] - 90.0) * (a.v[1] + 20.0) * (a.v[2] + 18.0))
                 .filter(a -> meetsCriteria(a, target, epsilon))
                 .findFirst();
+    }
+
+    private void bruteForceSolveSimpleThreeVariableEquationWithZeroTarget() {
+        //given
+        Double target = 0.0;
+        Double epsilon = 0.0001;
+
+        //then
+        for (double d1 = -100.0 ; d1 < 100.0 ; d1 = d1 + epsilon) {
+            for (double d2 = -100.0 ; d2 < 100.0 ; d2 = d2 + epsilon) {
+                for (double d3 = -100.0 ; d3 < 100.0 ; d3 = d3 + epsilon) {
+                    double result = (d1 - 90.0) * (d2 + 20.0) * (d3 + 18.0);
+                    if (meetsCriteria(result, target, epsilon)) return;
+                }
+            }
+        }
     }
 }
