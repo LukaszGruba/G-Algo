@@ -4,9 +4,7 @@ import org.junit.Test;
 
 import java.util.stream.Stream;
 
-import static com.lukgru.galgo.heavy.HeavyTestUtils.MINUTE;
-import static com.lukgru.galgo.heavy.HeavyTestUtils.isFaster;
-import static com.lukgru.galgo.heavy.HeavyTestUtils.meetsCriteria;
+import static com.lukgru.galgo.heavy.HeavyTestUtils.*;
 import static java.lang.Math.random;
 import static org.junit.Assert.assertTrue;
 
@@ -22,7 +20,8 @@ public class TwoVariablesComparisonTest {
         //when
         boolean isFaster = isFaster(
                 tests::solveSimpleTwoVariableEquationWithZeroTarget,
-                this::randomSolveSimpleTwoVariableEquationWithZeroTarget);
+                this::randomSolveSimpleTwoVariableEquationWithZeroTarget,
+                this::bruteForceSolveSimpleTwoVariableEquationWithZeroTarget);
         //then
         assertTrue(isFaster);
     }
@@ -42,4 +41,16 @@ public class TwoVariablesComparisonTest {
                 .findFirst();
     }
 
+    private void bruteForceSolveSimpleTwoVariableEquationWithZeroTarget() {
+        //given
+        Double target = 0.0;
+        Double epsilon = 0.0001;
+
+        //then
+        for (double d1 = 0.0; d1 < 100.0; d1 = d1 + epsilon) {
+            for (double d2 = 0.0; d2 < 100.0; d2 = d2 + epsilon) {
+                if (meetsCriteria((d1 - 90.0) * (d2 + 20.0), epsilon, target)) return;
+            }
+        }
+    }
 }
