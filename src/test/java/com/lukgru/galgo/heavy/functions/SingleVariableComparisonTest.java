@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.stream.Stream;
 
 import static com.lukgru.galgo.heavy.HeavyTestUtils.MINUTE;
-import static com.lukgru.galgo.heavy.HeavyTestUtils.compareExecution;
+import static com.lukgru.galgo.heavy.HeavyTestUtils.isFaster;
 import static com.lukgru.galgo.heavy.HeavyTestUtils.meetsCriteria;
 import static java.lang.Math.random;
 import static org.junit.Assert.assertTrue;
@@ -20,10 +20,10 @@ public class SingleVariableComparisonTest {
     @Test(timeout = 2 * MINUTE)
     public void singleVariableEquationWithZeroTargetComparison() {
         //when
-        long timeDiff = compareExecution(tests::solveSimpleSingleVariableEquationWithZeroTarget,
+        boolean isFaster = isFaster(tests::solveSimpleSingleVariableEquationWithZeroTarget,
                 this::randomSolveSimpleSingleVariableEquationWithZeroTarget);
         //then
-        assertTrue(timeDiff < 0);
+        assertTrue(isFaster);
     }
 
     private void randomSolveSimpleSingleVariableEquationWithZeroTarget() {
@@ -41,10 +41,10 @@ public class SingleVariableComparisonTest {
     @Test(timeout = 2 * MINUTE)
     public void singleVariableQuadraticEquationWithOneSolutionAndZeroTargetComparison() {
         //when
-        long timeDiff = compareExecution(tests::solveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget,
+        boolean isFaster = isFaster(tests::solveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget,
                 this::randomSolveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget);
         //then
-        assertTrue(timeDiff < 0);
+        assertTrue(isFaster);
     }
 
     private void randomSolveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget() {
@@ -62,10 +62,10 @@ public class SingleVariableComparisonTest {
     @Test(timeout = 2 * MINUTE)
     public void singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTargetComparison() {
         //when
-        long timeDiff = compareExecution(tests::solveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget,
+        boolean isFaster = isFaster(tests::solveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget,
                 this::randomSolveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget);
         //then
-        assertTrue(timeDiff < 0);
+        assertTrue(isFaster);
     }
 
     private void randomSolveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget() {

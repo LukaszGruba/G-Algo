@@ -18,12 +18,12 @@ public class ThreeVariablesComparisonTest {
     @Test(timeout = 2 * MINUTE)
     public void simpleThreeVariableEquationWithZeroTargetComparison() {
         //given
-        long timeDifference = compareExecution(
+        boolean isFaster = isFaster(
                 tests::solveSimpleThreeVariableEquationWithZeroTarget,
                 this::randomSolveSimpleThreeVariableEquationWithZeroTarget);
 
         //then
-        assertTrue(0 > timeDifference);
+        assertTrue(isFaster);
     }
 
     private void randomSolveSimpleThreeVariableEquationWithZeroTarget() {

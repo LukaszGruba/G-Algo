@@ -19,13 +19,13 @@ public class FiveVariablesComparisonTest {
     @Test(timeout = 2 * MINUTE)
     public void simpleFiveVariableEquationWithOneSolutionAndZeroTargetComparison() {
         //given
-        long timeDifference = compareExecution(
+        boolean isFaster = isFaster(
                 tests::solveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget,
                 this::randomSolveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget
         );
 
         //then
-        assertTrue(0 > timeDifference);
+        assertTrue(isFaster);
     }
 
     private void randomSolveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget() {
@@ -50,13 +50,13 @@ public class FiveVariablesComparisonTest {
     @Test(timeout = 2 * MINUTE)
     public void simpleFiveVariablesEquationWithInfiniteSolutionsAndZeroTargetComparison() {
         //given
-        long timeDifference = compareExecution(
+        boolean isFaster = isFaster(
                 tests::solveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget,
                 this::randomSolveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget
         );
 
         //then
-        assertTrue(0 > timeDifference);
+        assertTrue(isFaster);
     }
 
     private void randomSolveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget() {

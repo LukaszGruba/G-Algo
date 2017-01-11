@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.stream.Stream;
 
 import static com.lukgru.galgo.heavy.HeavyTestUtils.MINUTE;
-import static com.lukgru.galgo.heavy.HeavyTestUtils.compareExecution;
+import static com.lukgru.galgo.heavy.HeavyTestUtils.isFaster;
 import static com.lukgru.galgo.heavy.HeavyTestUtils.meetsCriteria;
 import static java.lang.Math.random;
 import static org.junit.Assert.assertTrue;
@@ -20,11 +20,11 @@ public class TwoVariablesComparisonTest {
     @Test(timeout = 2 * MINUTE)
     public void simpleTwoVariableEquationWithZeroTargetComparison() {
         //when
-        long timeDiff = compareExecution(
+        boolean isFaster = isFaster(
                 tests::solveSimpleTwoVariableEquationWithZeroTarget,
                 this::randomSolveSimpleTwoVariableEquationWithZeroTarget);
         //then
-        assertTrue(timeDiff < 0);
+        assertTrue(isFaster);
     }
 
     private void randomSolveSimpleTwoVariableEquationWithZeroTarget() {
