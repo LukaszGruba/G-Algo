@@ -19,7 +19,8 @@ public class SingleVariableComparisonTest {
     @Test(timeout = 2 * MINUTE)
     public void singleVariableEquationWithZeroTargetComparison() {
         //when
-        boolean isFaster = isFaster(tests::solveSimpleSingleVariableEquationWithZeroTarget,
+        boolean isFaster = isFaster(
+                tests::solveSimpleSingleVariableEquationWithZeroTarget,
                 this::randomSolveSingleVariableEquationWithZeroTarget,
                 this::bruteForceSolveSingleVariableEquationWithZeroTarget);
         //then
@@ -30,9 +31,6 @@ public class SingleVariableComparisonTest {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
-
-        //TODO: is it executed at all???
-        if (true) throw new NullPointerException("asdf");
 
         //then
         Stream.generate(() -> random() * 200 - 100)

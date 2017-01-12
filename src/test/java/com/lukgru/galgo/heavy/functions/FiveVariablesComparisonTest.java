@@ -19,7 +19,7 @@ public class FiveVariablesComparisonTest {
     @Test(timeout = 2 * MINUTE)
     public void simpleFiveVariableEquationWithOneSolutionAndZeroTargetComparison() {
         //given
-        boolean isFaster = isFaster(
+        boolean isFaster = isFasterParallel(
                 tests::solveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget,
                 this::randomSolveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget,
                 this::bruteForceSolveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget
@@ -71,7 +71,7 @@ public class FiveVariablesComparisonTest {
     @Test(timeout = 2 * MINUTE)
     public void simpleFiveVariablesEquationWithInfiniteSolutionsAndZeroTargetComparison() {
         //given
-        boolean isFaster = isFaster(
+        boolean isFaster = isFasterParallel(
                 tests::solveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget,
                 this::randomSolveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget,
                 this::bruteForceSolveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget
