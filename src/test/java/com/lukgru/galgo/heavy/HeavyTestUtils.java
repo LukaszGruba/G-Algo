@@ -1,14 +1,7 @@
 package com.lukgru.galgo.heavy;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.MethodAccessor_Short;
-
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -54,19 +47,6 @@ public class HeavyTestUtils {
             e.printStackTrace();
             return false;
         }
-//        try {
-//            ExecutorService executorService = Executors.newFixedThreadPool(1 + shouldBeSlower.length);
-//            Future fast = executorService.submit(shouldBeFaster);
-//            List<Future> slowFutures = Arrays.stream(shouldBeSlower).map(executorService::submit).collect(toList());
-//            fast.get();
-//            boolean isFaster = slowFutures.stream().filter(Future::isDone).findFirst().isPresent();
-//            slowFutures.forEach(future -> future.cancel(true));
-//            executorService.shutdown();
-//            return isFaster;
-//        } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
     }
 
     private static long measureTime(Runnable runnable) {
@@ -75,5 +55,4 @@ public class HeavyTestUtils {
         long end = System.currentTimeMillis();
         return end - start;
     }
-
 }
