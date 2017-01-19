@@ -193,11 +193,10 @@ public class StringHeavyTest {
     @Test
     public void guessComplexSentence216Chars() {
         //given
-        String word = "Wilfrid Stalker Sellars (May 20, 1912 – July 2, 1989) was an American philosopher and prominent developer of critical realism";//,[2] who revolutionized both the content and the method of philosophy in the United States.";
+        String word = "Wilfrid Stalker Sellars (May 20, 1912 – July 2, 1989) was an American philosopher and prominent developer of critical realism,[2] who revolutionized both the content and the method of philosophy in the United States.";
         CrossoverFunction<String> crossover = (s1, s2) -> {
-            int splitIndex1 = random.nextInt(Math.max(1, s1.length()));
-            int splitIndex2 = random.nextInt(Math.max(1, s2.length()));
-            return s1.substring(0, splitIndex1) + s2.substring(splitIndex2, s2.length());
+            int splitIndex = random.nextInt(Math.max(1, s1.length()));
+            return s1.substring(0, splitIndex) + s2.substring(splitIndex, s2.length());
         };
         MutationFunction<String> mutation = s -> {
             int changes = random.nextInt(s.length() / 2 + 1);
@@ -212,8 +211,8 @@ public class StringHeavyTest {
         double epsilon = 0.0000001;
 
         //when
-        GenerationResult<String> result = GAlgo.fromGeneratedPopulation(() -> randomStringUpToNChars(400))
-                .withSize(1000)
+        GenerationResult<String> result = GAlgo.fromGeneratedPopulation(() -> randomStringNChars(216))
+                .withSize(10000)
                 .withFitnessFunction(s -> wordsDistance(word, s))
                 .targeting(0.0)
                 .withEpsilon(epsilon)

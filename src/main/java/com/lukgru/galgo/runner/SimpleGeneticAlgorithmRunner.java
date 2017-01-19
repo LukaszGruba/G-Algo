@@ -3,6 +3,7 @@ package com.lukgru.galgo.runner;
 import com.lukgru.galgo.crossover.CrossoverFunction;
 import com.lukgru.galgo.fitness.FitnessFunction;
 import com.lukgru.galgo.mutation.Mutation;
+import com.lukgru.galgo.population.Individual;
 import com.lukgru.galgo.population.Population;
 import com.lukgru.galgo.population.PopulationAccessor;
 import com.lukgru.galgo.runner.fitness.SimpleFitnessCalculator;
@@ -56,6 +57,10 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
             computeFitness(newPopulation, fitnessFunction);
             population = newPopulation;
             iteration++;
+            if (iteration % 100 == 0) {
+                Individual<T> best = new GenerationResult<>(population, iteration, fitnessFunction.getTarget()).getBest();
+                System.out.println(iteration + "\t" + best.getFitnessScore() + "\t" + best.getValue());
+            }
         } while (!solutionFound(population, fitnessFunction, epsilon));
         return new GenerationResult<>(population, iteration, fitnessFunction.getTarget());
     }
