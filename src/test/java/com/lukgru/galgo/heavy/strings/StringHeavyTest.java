@@ -190,10 +190,12 @@ public class StringHeavyTest {
         assertEquals(word, best.getValue());
     }
 
-    @Test
+    @Test(timeout = MINUTE)
     public void guessComplexSentence216Chars() {
         //given
-        String word = "Wilfrid Stalker Sellars (May 20, 1912 - July 2, 1989) was an American philosopher and prominent developer of critical realism,[2] who revolutionized both the content and the method of philosophy in the United States.";
+        String word = "Wilfrid Stalker Sellars (May 20, 1912 - July 2, 1989) was an American philosopher" +
+                " and prominent developer of critical realism,[2] who revolutionized both the content" +
+                " and the method of philosophy in the United States.";
         CrossoverFunction<String> crossover = (s1, s2) -> {
             int oneFourthOfLength = s1.length() / 4;
             int splitIndex1 = random.nextInt(Math.max(1, oneFourthOfLength));
@@ -222,6 +224,51 @@ public class StringHeavyTest {
                 .withCrossover(crossover)
                 .withMutationFunction(mutation)
                 .withMutationProbability(0.05)
+                .runner().generate();
+
+        //then
+        Individual<String> best = result.getBest();
+        assertEquals(word, best.getValue());
+    }
+
+    @Test(timeout = MINUTE)
+    public void guessComplexSentence652Chars() {
+        //given
+        String word = "Causal determinism is, roughly speaking, the idea that every event is necessitated by antecedent" +
+                " events and conditions together with the laws of nature. The idea is ancient, but first became subject" +
+                " to clarification and mathematical analysis in the eighteenth century. Determinism is deeply connected" +
+                " with our understanding of the physical sciences and their explanatory ambitions, on the one hand, and" +
+                " with our views about human free action on the other. In both of these general areas there is" +
+                " no agreement over whether determinism is true (or even whether it can be known true or false)," +
+                " and what the import for human agency would be in either case.";
+        CrossoverFunction<String> crossover = (s1, s2) -> {
+            int oneFourthOfLength = s1.length() / 4;
+            int splitIndex1 = random.nextInt(Math.max(1, oneFourthOfLength));
+            int splitIndex2 = oneFourthOfLength + random.nextInt(Math.max(1, oneFourthOfLength));
+            int splitIndex3 = 2 * oneFourthOfLength + random.nextInt(Math.max(1, oneFourthOfLength));
+            return s1.substring(0, splitIndex1)
+                    + s2.substring(splitIndex1, splitIndex2)
+                    + s1.substring(splitIndex2, splitIndex3)
+                    + s2.substring(splitIndex3, s2.length());
+        };
+        MutationFunction<String> mutation = s -> {
+            char[] chars = s.toCharArray();
+            int index = random.nextInt(s.length());
+            String c = randomStringNChars(1);
+            chars[index] = c.charAt(0);
+            return new String(chars);
+        };
+        double epsilon = 0.0000001;
+
+        //when
+        GenerationResult<String> result = GAlgo.fromGeneratedPopulation(() -> randomStringNChars(652))
+                .withSize(1000)
+                .withFitnessFunction(s -> wordsDistance(word, s))
+                .targeting(0.0)
+                .withEpsilon(epsilon)
+                .withCrossover(crossover)
+                .withMutationFunction(mutation)
+                .withMutationProbability(0.1)
                 .runner().generate();
 
         //then
