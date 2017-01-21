@@ -4,9 +4,7 @@ import org.junit.Test;
 
 import java.util.stream.Stream;
 
-import static com.lukgru.galgo.heavy.HeavyTestUtils.MINUTE;
-import static com.lukgru.galgo.heavy.HeavyTestUtils.compareExecution;
-import static com.lukgru.galgo.heavy.HeavyTestUtils.meetsCriteria;
+import static com.lukgru.galgo.heavy.HeavyTestUtils.*;
 import static java.lang.Math.random;
 import static org.junit.Assert.assertTrue;
 
@@ -15,19 +13,20 @@ import static org.junit.Assert.assertTrue;
  */
 public class TwoVariablesComparisonTest {
 
-    private TwoVariablesHeavyTest tests = new TwoVariablesHeavyTest();
+    private TwoVariablesHeavyTest test = new TwoVariablesHeavyTest();
 
     @Test(timeout = 2 * MINUTE)
-    public void simpleTwoVariableEquationWithZeroTargetComparison() {
+    public void twoVariableEquationWithZeroTargetComparison() {
         //when
-        long timeDiff = compareExecution(
-                tests::solveSimpleTwoVariableEquationWithZeroTarget,
-                this::randomSolveSimpleTwoVariableEquationWithZeroTarget);
+        boolean isFaster = isFaster(
+                test::twoVariableEquationWithZeroTarget,
+                this::twoVariableEquationWithZeroTargetRandom,
+                this::twoVariableEquationWithZeroTargetBruteForce);
         //then
-        assertTrue(timeDiff < 0);
+        assertTrue(isFaster);
     }
 
-    private void randomSolveSimpleTwoVariableEquationWithZeroTarget() {
+    private void twoVariableEquationWithZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
@@ -42,4 +41,16 @@ public class TwoVariablesComparisonTest {
                 .findFirst();
     }
 
+    private void twoVariableEquationWithZeroTargetBruteForce() {
+        //given
+        Double target = 0.0;
+        Double epsilon = 0.0001;
+
+        //then
+        for (double d1 = 0.0; d1 < 100.0; d1 = d1 + epsilon) {
+            for (double d2 = 0.0; d2 < 100.0; d2 = d2 + epsilon) {
+                if (meetsCriteria((d1 - 90.0) * (d2 + 20.0), epsilon, target)) return;
+            }
+        }
+    }
 }

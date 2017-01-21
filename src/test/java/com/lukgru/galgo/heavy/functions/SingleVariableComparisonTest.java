@@ -2,11 +2,10 @@ package com.lukgru.galgo.heavy.functions;
 
 import org.junit.Test;
 
+import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
-import static com.lukgru.galgo.heavy.HeavyTestUtils.MINUTE;
-import static com.lukgru.galgo.heavy.HeavyTestUtils.compareExecution;
-import static com.lukgru.galgo.heavy.HeavyTestUtils.meetsCriteria;
+import static com.lukgru.galgo.heavy.HeavyTestUtils.*;
 import static java.lang.Math.random;
 import static org.junit.Assert.assertTrue;
 
@@ -15,18 +14,20 @@ import static org.junit.Assert.assertTrue;
  */
 public class SingleVariableComparisonTest {
 
-    private SingleVariableHeavyTest tests = new SingleVariableHeavyTest();
+    private SingleVariableHeavyTest test = new SingleVariableHeavyTest();
 
     @Test(timeout = 2 * MINUTE)
     public void singleVariableEquationWithZeroTargetComparison() {
         //when
-        long timeDiff = compareExecution(tests::solveSimpleSingleVariableEquationWithZeroTarget,
-                this::randomSolveSimpleSingleVariableEquationWithZeroTarget);
+        boolean isFaster = isFaster(
+                test::singleVariableEquationWithZeroTarget,
+                this::singleVariableEquationWithZeroTargetRandom,
+                this::singleVariableEquationWithZeroTargetBruteForce);
         //then
-        assertTrue(timeDiff < 0);
+        assertTrue(isFaster);
     }
 
-    private void randomSolveSimpleSingleVariableEquationWithZeroTarget() {
+    private void singleVariableEquationWithZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
@@ -38,16 +39,30 @@ public class SingleVariableComparisonTest {
                 .findFirst();
     }
 
+    private void singleVariableEquationWithZeroTargetBruteForce() {
+        //given
+        Double target = 0.0;
+        Double epsilon = 2.0;
+
+        //then
+        DoubleStream.iterate(-100.0, d -> d + epsilon)
+                .map(x -> (14.0 * x) - 28)
+                .filter(x -> meetsCriteria(x, target, epsilon))
+                .findFirst();
+    }
+
     @Test(timeout = 2 * MINUTE)
     public void singleVariableQuadraticEquationWithOneSolutionAndZeroTargetComparison() {
         //when
-        long timeDiff = compareExecution(tests::solveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget,
-                this::randomSolveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget);
+        boolean isFaster = isFaster(
+                test::singleVariableQuadraticEquationWithOneSolutionAndZeroTarget,
+                this::singleVariableQuadraticEquationWithOneSolutionAndZeroTargetRandom,
+                this::singleVariableQuadraticEquationWithOneSolutionAndZeroTargetBruteForce);
         //then
-        assertTrue(timeDiff < 0);
+        assertTrue(isFaster);
     }
 
-    private void randomSolveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget() {
+    private void singleVariableQuadraticEquationWithOneSolutionAndZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
@@ -59,16 +74,30 @@ public class SingleVariableComparisonTest {
                 .findFirst();
     }
 
+    private void singleVariableQuadraticEquationWithOneSolutionAndZeroTargetBruteForce() {
+        //given
+        Double target = 0.0;
+        Double epsilon = 0.0001;
+
+        //then
+        DoubleStream.iterate(-100.0, d -> d + epsilon)
+                .map(x -> (x - 1) * (x - 1))
+                .filter(x -> meetsCriteria(x, target, epsilon))
+                .findFirst();
+    }
+
     @Test(timeout = 2 * MINUTE)
     public void singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTargetComparison() {
         //when
-        long timeDiff = compareExecution(tests::solveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget,
-                this::randomSolveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget);
+        boolean isFaster = isFaster(
+                test::singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget,
+                this::singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTargetRandom,
+                this::singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTargetBruteForce);
         //then
-        assertTrue(timeDiff < 0);
+        assertTrue(isFaster);
     }
 
-    private void randomSolveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget() {
+    private void singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
@@ -78,6 +107,17 @@ public class SingleVariableComparisonTest {
                 .map(x -> (x - 90.0) * (x + 20.0))
                 .filter(x -> meetsCriteria(x, target, epsilon))
                 .findFirst();
+    }
 
+    private void singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTargetBruteForce() {
+        //given
+        Double target = 0.0;
+        Double epsilon = 0.0001;
+
+        //then
+        DoubleStream.iterate(-100.0, d -> d + epsilon)
+                .map(x -> (x - 90.0) * (x + 20.0))
+                .filter(x -> meetsCriteria(x, target, epsilon))
+                .findFirst();
     }
 }

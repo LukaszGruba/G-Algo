@@ -14,21 +14,22 @@ import static org.junit.Assert.assertTrue;
  */
 public class FiveVariablesComparisonTest {
 
-    private FiveVariablesHeavyTest tests = new FiveVariablesHeavyTest();
+    private FiveVariablesHeavyTest test = new FiveVariablesHeavyTest();
 
     @Test(timeout = 2 * MINUTE)
-    public void simpleFiveVariableEquationWithOneSolutionAndZeroTargetComparison() {
+    public void fiveVariableEquationWithOneSolutionAndZeroTargetComparison() {
         //given
-        long timeDifference = compareExecution(
-                tests::solveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget,
-                this::randomSolveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget
+        boolean isFaster = isFasterParallel(
+                test::fiveVariableEquationWithOneSolutionAndZeroTarget,
+                this::fiveVariableEquationWithOneSolutionAndZeroTargetRandom,
+                this::fiveVariableEquationWithOneSolutionAndZeroTargetBruteForce
         );
 
         //then
-        assertTrue(0 > timeDifference);
+        assertTrue(isFaster);
     }
 
-    private void randomSolveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget() {
+    private void fiveVariableEquationWithOneSolutionAndZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 1.0;
@@ -47,19 +48,40 @@ public class FiveVariablesComparisonTest {
                 .findFirst();
     }
 
-    @Test(timeout = 2 * MINUTE)
-    public void simpleFiveVariablesEquationWithInfiniteSolutionsAndZeroTargetComparison() {
+    private void fiveVariableEquationWithOneSolutionAndZeroTargetBruteForce() {
         //given
-        long timeDifference = compareExecution(
-                tests::solveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget,
-                this::randomSolveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget
+        Double target = 0.0;
+        Double epsilon = 1.0;
+
+        //then
+        for (double d1 = -100.0; d1 < 100.0; d1 = d1 + 0.1) {
+            for (double d2 = -100.0; d2 < 100.0; d2 = d2 + 0.1) {
+                for (double d3 = -100.0; d3 < 100.0; d3 = d3 + 0.1) {
+                    for (double d4 = -100.0; d4 < 100.0; d4 = d4 + 0.1) {
+                        for (double d5 = -100.0; d5 < 100.0; d5 = d5 + 0.1) {
+                            double result = pow(d1 - 90.0, 2) + pow(d2 + 20.0, 2) + pow(d3 + 18.0, 2) + pow(d4 - 55, 2) + pow(d5 - 78, 2);
+                            if (meetsCriteria(result, target, epsilon)) return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test(timeout = 2 * MINUTE)
+    public void fiveVariablesEquationWithInfiniteSolutionsAndZeroTargetComparison() {
+        //given
+        boolean isFaster = isFasterParallel(
+                test::fiveVariablesEquationWithInfiniteSolutionsAndZeroTarget,
+                this::fiveVariablesEquationWithInfiniteSolutionsAndZeroTargetRandom,
+                this::fiveVariablesEquationWithInfiniteSolutionsAndZeroTargetBruteForce
         );
 
         //then
-        assertTrue(0 > timeDifference);
+        assertTrue(isFaster);
     }
 
-    private void randomSolveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget() {
+    private void fiveVariablesEquationWithInfiniteSolutionsAndZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 0.00001;
@@ -73,8 +95,31 @@ public class FiveVariablesComparisonTest {
                 random() * 200 - 100
         ))
                 .map(a ->
-                        pow(a.v[0] - 90.0, 2) + pow(a.v[1] + 20.0, 2) + pow(a.v[2] + 18.0, 2) + pow(a.v[3] - 55, 2) + pow(a.v[4] - 78, 2))
+                        (a.v[0] - 90.0) + (a.v[1] + 20.0) + (a.v[2] + 18.0) + (a.v[3] - 55) + (a.v[4] - 78))
                 .filter(a -> meetsCriteria(a, target, epsilon))
                 .findFirst();
+    }
+
+    private void fiveVariablesEquationWithInfiniteSolutionsAndZeroTargetBruteForce() {
+        //given
+        Double target = 0.0;
+        Double epsilon = 0.00001;
+
+        //then
+        for (double d1 = -100.0; d1 < 100.0; d1 = d1 + 0.1) {
+            for (double d2 = -100.0; d2 < 100.0; d2 = d2 + 0.1) {
+                for (double d3 = -100.0; d3 < 100.0; d3 = d3 + 0.1) {
+                    for (double d4 = -100.0; d4 < 100.0; d4 = d4 + 0.1) {
+                        for (double d5 = -100.0; d5 < 100.0; d5 = d5 + 0.1) {
+                            double result = (d1 - 90.0) + (d2 + 20.0) + (d3 + 18.0) + (d4 - 55) + (d5 - 78);
+                            if (meetsCriteria(result, target, epsilon)) {
+                                System.out.println("yay");
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

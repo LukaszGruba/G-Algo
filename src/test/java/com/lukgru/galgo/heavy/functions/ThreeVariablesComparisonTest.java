@@ -13,20 +13,21 @@ import static org.junit.Assert.assertTrue;
  */
 public class ThreeVariablesComparisonTest {
 
-    private ThreeVariablesHeavyTest tests = new ThreeVariablesHeavyTest();
+    private ThreeVariablesHeavyTest test = new ThreeVariablesHeavyTest();
 
     @Test(timeout = 2 * MINUTE)
-    public void simpleThreeVariableEquationWithZeroTargetComparison() {
+    public void threeVariableEquationWithZeroTargetComparison() {
         //given
-        long timeDifference = compareExecution(
-                tests::solveSimpleThreeVariableEquationWithZeroTarget,
-                this::randomSolveSimpleThreeVariableEquationWithZeroTarget);
+        boolean isFaster = isFaster(
+                test::threeVariableEquationWithZeroTarget,
+                this::threeVariableEquationWithZeroTargetRandom,
+                this::threeVariableEquationWithZeroTargetBruteForce);
 
         //then
-        assertTrue(0 > timeDifference);
+        assertTrue(isFaster);
     }
 
-    private void randomSolveSimpleThreeVariableEquationWithZeroTarget() {
+    private void threeVariableEquationWithZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
@@ -40,5 +41,21 @@ public class ThreeVariablesComparisonTest {
                 .map(a -> (a.v[0] - 90.0) * (a.v[1] + 20.0) * (a.v[2] + 18.0))
                 .filter(a -> meetsCriteria(a, target, epsilon))
                 .findFirst();
+    }
+
+    private void threeVariableEquationWithZeroTargetBruteForce() {
+        //given
+        Double target = 0.0;
+        Double epsilon = 0.0001;
+
+        //then
+        for (double d1 = -100.0 ; d1 < 100.0 ; d1 = d1 + epsilon) {
+            for (double d2 = -100.0 ; d2 < 100.0 ; d2 = d2 + epsilon) {
+                for (double d3 = -100.0 ; d3 < 100.0 ; d3 = d3 + epsilon) {
+                    double result = (d1 - 90.0) * (d2 + 20.0) * (d3 + 18.0);
+                    if (meetsCriteria(result, target, epsilon)) return;
+                }
+            }
+        }
     }
 }

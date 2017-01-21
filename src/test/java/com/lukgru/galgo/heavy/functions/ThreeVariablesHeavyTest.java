@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class ThreeVariablesHeavyTest {
 
     @Test(timeout = MINUTE)
-    public void solveSimpleThreeVariableEquationWithZeroTarget() {
+    public void threeVariableEquationWithZeroTarget() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
