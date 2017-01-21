@@ -6,6 +6,7 @@ import com.lukgru.galgo.population.Population;
 /**
  * Created by Lukasz on 28.11.2016.
  */
+//TODO: add accessor for statistics
 public class GenerationResult<T> {
     private final Population<T> finalPopulation;
     private final int iterations;
