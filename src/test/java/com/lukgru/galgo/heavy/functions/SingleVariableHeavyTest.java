@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class SingleVariableHeavyTest {
 
     @Test(timeout = MINUTE)
-    public void solveSimpleSingleVariableEquationWithZeroTarget() {
+    public void singleVariableEquationWithZeroTarget() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
@@ -40,7 +40,7 @@ public class SingleVariableHeavyTest {
     }
 
     @Test(timeout = MINUTE)
-    public void solveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget() {
+    public void singleVariableQuadraticEquationWithOneSolutionAndZeroTarget() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
@@ -64,7 +64,7 @@ public class SingleVariableHeavyTest {
     }
 
     @Test(timeout = MINUTE)
-    public void solveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget() {
+    public void singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget() {
         //given
         Double target = 0.0;
         Double epsilon = 0.01;

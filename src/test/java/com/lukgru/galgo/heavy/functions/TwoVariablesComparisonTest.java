@@ -13,20 +13,20 @@ import static org.junit.Assert.assertTrue;
  */
 public class TwoVariablesComparisonTest {
 
-    private TwoVariablesHeavyTest tests = new TwoVariablesHeavyTest();
+    private TwoVariablesHeavyTest test = new TwoVariablesHeavyTest();
 
     @Test(timeout = 2 * MINUTE)
-    public void simpleTwoVariableEquationWithZeroTargetComparison() {
+    public void twoVariableEquationWithZeroTargetComparison() {
         //when
         boolean isFaster = isFaster(
-                tests::solveSimpleTwoVariableEquationWithZeroTarget,
-                this::randomSolveSimpleTwoVariableEquationWithZeroTarget,
-                this::bruteForceSolveSimpleTwoVariableEquationWithZeroTarget);
+                test::twoVariableEquationWithZeroTarget,
+                this::twoVariableEquationWithZeroTargetRandom,
+                this::twoVariableEquationWithZeroTargetBruteForce);
         //then
         assertTrue(isFaster);
     }
 
-    private void randomSolveSimpleTwoVariableEquationWithZeroTarget() {
+    private void twoVariableEquationWithZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
@@ -41,7 +41,7 @@ public class TwoVariablesComparisonTest {
                 .findFirst();
     }
 
-    private void bruteForceSolveSimpleTwoVariableEquationWithZeroTarget() {
+    private void twoVariableEquationWithZeroTargetBruteForce() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;

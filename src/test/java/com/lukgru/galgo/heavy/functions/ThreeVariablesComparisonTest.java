@@ -13,21 +13,21 @@ import static org.junit.Assert.assertTrue;
  */
 public class ThreeVariablesComparisonTest {
 
-    private ThreeVariablesHeavyTest tests = new ThreeVariablesHeavyTest();
+    private ThreeVariablesHeavyTest test = new ThreeVariablesHeavyTest();
 
     @Test(timeout = 2 * MINUTE)
-    public void simpleThreeVariableEquationWithZeroTargetComparison() {
+    public void threeVariableEquationWithZeroTargetComparison() {
         //given
         boolean isFaster = isFaster(
-                tests::solveSimpleThreeVariableEquationWithZeroTarget,
-                this::randomSolveSimpleThreeVariableEquationWithZeroTarget,
-                this::bruteForceSolveSimpleThreeVariableEquationWithZeroTarget);
+                test::threeVariableEquationWithZeroTarget,
+                this::threeVariableEquationWithZeroTargetRandom,
+                this::threeVariableEquationWithZeroTargetBruteForce);
 
         //then
         assertTrue(isFaster);
     }
 
-    private void randomSolveSimpleThreeVariableEquationWithZeroTarget() {
+    private void threeVariableEquationWithZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
@@ -43,7 +43,7 @@ public class ThreeVariablesComparisonTest {
                 .findFirst();
     }
 
-    private void bruteForceSolveSimpleThreeVariableEquationWithZeroTarget() {
+    private void threeVariableEquationWithZeroTargetBruteForce() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;

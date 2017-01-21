@@ -14,22 +14,22 @@ import static org.junit.Assert.assertTrue;
  */
 public class FiveVariablesComparisonTest {
 
-    private FiveVariablesHeavyTest tests = new FiveVariablesHeavyTest();
+    private FiveVariablesHeavyTest test = new FiveVariablesHeavyTest();
 
     @Test(timeout = 2 * MINUTE)
-    public void simpleFiveVariableEquationWithOneSolutionAndZeroTargetComparison() {
+    public void fiveVariableEquationWithOneSolutionAndZeroTargetComparison() {
         //given
         boolean isFaster = isFasterParallel(
-                tests::solveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget,
-                this::randomSolveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget,
-                this::bruteForceSolveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget
+                test::fiveVariableEquationWithOneSolutionAndZeroTarget,
+                this::fiveVariableEquationWithOneSolutionAndZeroTargetRandom,
+                this::fiveVariableEquationWithOneSolutionAndZeroTargetBruteForce
         );
 
         //then
         assertTrue(isFaster);
     }
 
-    private void randomSolveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget() {
+    private void fiveVariableEquationWithOneSolutionAndZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 1.0;
@@ -48,7 +48,7 @@ public class FiveVariablesComparisonTest {
                 .findFirst();
     }
 
-    private void bruteForceSolveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget() {
+    private void fiveVariableEquationWithOneSolutionAndZeroTargetBruteForce() {
         //given
         Double target = 0.0;
         Double epsilon = 1.0;
@@ -69,19 +69,19 @@ public class FiveVariablesComparisonTest {
     }
 
     @Test(timeout = 2 * MINUTE)
-    public void simpleFiveVariablesEquationWithInfiniteSolutionsAndZeroTargetComparison() {
+    public void fiveVariablesEquationWithInfiniteSolutionsAndZeroTargetComparison() {
         //given
         boolean isFaster = isFasterParallel(
-                tests::solveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget,
-                this::randomSolveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget,
-                this::bruteForceSolveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget
+                test::fiveVariablesEquationWithInfiniteSolutionsAndZeroTarget,
+                this::fiveVariablesEquationWithInfiniteSolutionsAndZeroTargetRandom,
+                this::fiveVariablesEquationWithInfiniteSolutionsAndZeroTargetBruteForce
         );
 
         //then
         assertTrue(isFaster);
     }
 
-    private void randomSolveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget() {
+    private void fiveVariablesEquationWithInfiniteSolutionsAndZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 0.00001;
@@ -100,7 +100,7 @@ public class FiveVariablesComparisonTest {
                 .findFirst();
     }
 
-    private void bruteForceSolveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget() {
+    private void fiveVariablesEquationWithInfiniteSolutionsAndZeroTargetBruteForce() {
         //given
         Double target = 0.0;
         Double epsilon = 0.00001;

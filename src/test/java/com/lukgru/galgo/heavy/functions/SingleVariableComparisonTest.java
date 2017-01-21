@@ -14,20 +14,20 @@ import static org.junit.Assert.assertTrue;
  */
 public class SingleVariableComparisonTest {
 
-    private SingleVariableHeavyTest tests = new SingleVariableHeavyTest();
+    private SingleVariableHeavyTest test = new SingleVariableHeavyTest();
 
     @Test(timeout = 2 * MINUTE)
     public void singleVariableEquationWithZeroTargetComparison() {
         //when
         boolean isFaster = isFaster(
-                tests::solveSimpleSingleVariableEquationWithZeroTarget,
-                this::randomSolveSingleVariableEquationWithZeroTarget,
-                this::bruteForceSolveSingleVariableEquationWithZeroTarget);
+                test::singleVariableEquationWithZeroTarget,
+                this::singleVariableEquationWithZeroTargetRandom,
+                this::singleVariableEquationWithZeroTargetBruteForce);
         //then
         assertTrue(isFaster);
     }
 
-    private void randomSolveSingleVariableEquationWithZeroTarget() {
+    private void singleVariableEquationWithZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
@@ -39,7 +39,7 @@ public class SingleVariableComparisonTest {
                 .findFirst();
     }
 
-    private void bruteForceSolveSingleVariableEquationWithZeroTarget() {
+    private void singleVariableEquationWithZeroTargetBruteForce() {
         //given
         Double target = 0.0;
         Double epsilon = 2.0;
@@ -54,14 +54,15 @@ public class SingleVariableComparisonTest {
     @Test(timeout = 2 * MINUTE)
     public void singleVariableQuadraticEquationWithOneSolutionAndZeroTargetComparison() {
         //when
-        boolean isFaster = isFaster(tests::solveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget,
-                this::randomSolveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget,
-                this::bruteForceSolveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget);
+        boolean isFaster = isFaster(
+                test::singleVariableQuadraticEquationWithOneSolutionAndZeroTarget,
+                this::singleVariableQuadraticEquationWithOneSolutionAndZeroTargetRandom,
+                this::singleVariableQuadraticEquationWithOneSolutionAndZeroTargetBruteForce);
         //then
         assertTrue(isFaster);
     }
 
-    private void randomSolveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget() {
+    private void singleVariableQuadraticEquationWithOneSolutionAndZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
@@ -73,7 +74,7 @@ public class SingleVariableComparisonTest {
                 .findFirst();
     }
 
-    private void bruteForceSolveSimpleSingleVariableQuadraticEquationWithOneSolutionAndZeroTarget() {
+    private void singleVariableQuadraticEquationWithOneSolutionAndZeroTargetBruteForce() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
@@ -88,14 +89,15 @@ public class SingleVariableComparisonTest {
     @Test(timeout = 2 * MINUTE)
     public void singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTargetComparison() {
         //when
-        boolean isFaster = isFaster(tests::solveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget,
-                this::randomSolveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget,
-                this::bruteForceSolveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget);
+        boolean isFaster = isFaster(
+                test::singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget,
+                this::singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTargetRandom,
+                this::singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTargetBruteForce);
         //then
         assertTrue(isFaster);
     }
 
-    private void randomSolveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget() {
+    private void singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTargetRandom() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;
@@ -107,7 +109,7 @@ public class SingleVariableComparisonTest {
                 .findFirst();
     }
 
-    private void bruteForceSolveSimpleSingleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTarget() {
+    private void singleVariableQuadraticEquationWithTwoDistantSolutionsAndZeroTargetBruteForce() {
         //given
         Double target = 0.0;
         Double epsilon = 0.0001;

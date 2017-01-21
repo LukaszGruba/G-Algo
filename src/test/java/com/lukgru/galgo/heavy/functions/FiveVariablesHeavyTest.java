@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class FiveVariablesHeavyTest {
 
     @Test(timeout = MINUTE)
-    public void solveSimpleFiveVariableEquationWithOneSolutionAndZeroTarget() {
+    public void fiveVariableEquationWithOneSolutionAndZeroTarget() {
         //given
         Double target = 0.0;
         Double epsilon = 1.0;
@@ -60,7 +60,7 @@ public class FiveVariablesHeavyTest {
     }
 
     @Test(timeout = MINUTE)
-    public void solveFiveVariablesEquationWithInfiniteSolutionsAndZeroTarget() {
+    public void fiveVariablesEquationWithInfiniteSolutionsAndZeroTarget() {
         //given
         Double target = 0.0;
         Double epsilon = 0.00001;
