@@ -61,7 +61,8 @@ public class SimpleGeneticAlgorithmRunner<T> implements GeneticAlgorithmRunner<T
                 Individual<T> best = new GenerationResult<>(population, iteration, fitnessFunction.getTarget()).getBest();
                 System.out.println(iteration + "\t" + best.getFitnessScore() + "\t" + best.getValue());
             }
-        } while (!solutionFound(population, fitnessFunction, epsilon));
+        }
+        while (!solutionFound(population, fitnessFunction, epsilon));
         return new GenerationResult<>(population, iteration, fitnessFunction.getTarget());
     }
 
